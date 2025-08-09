@@ -1,0 +1,93 @@
+{
+	"arrow": {
+		"wood": {
+			"unitCost": "",
+			"damage": 0,
+			"quiverPrice": ""
+		},
+		"stone": {
+			"unitCost": "",
+			"damage": 1,
+			"quiverPrice": ""
+		},
+		"bronze": {
+			"unitCost": "20c",
+			"damage": 2,
+			"quiverPrice": "8s"
+		},
+		"iron": {
+			"unitCost": "50c",
+			"damage": 3,
+			"quiverPrice": "20s"
+		},
+		"steal": {
+			"unitCost": "10s",
+			"damage": 4,
+			"quiverPrice": "4g"
+		},
+		"mithril": {
+			"unitCost": "40s",
+			"damage": 6,
+			"quiverPrice": "16g"
+		}
+	},
+	"crossbowBolt": {
+		"wood": {
+			"unitCost": "",
+			"damage": 0,
+			"quiverPrice": ""
+		},
+		"stone": {
+			"unitCost": "",
+			"damage": 1,
+			"quiverPrice": ""
+		},
+		"bronze": {
+			"unitCost": "23c",
+			"damage": 2,
+			"quiverPrice": "0g-9s-20c"
+		},
+		"iron": {
+			"unitCost": "57c",
+			"damage": 3,
+			"quiverPrice": "0g-22s-80c"
+		},
+		"steal": {
+			"unitCost": "12s",
+			"damage": 4,
+			"quiverPrice": "4g-80s-0c"
+		},
+		"mithril": {
+			"unitCost": "46s",
+			"damage": 6,
+			"quiverPrice": "18g-40s-0c"
+		}
+	},
+	"bullet": {
+		"lead": {
+			"unitCost": "20c",
+			"damage": 1,
+			"quiverPrice": "8s"
+		},
+		"bronze": {
+			"unitCost": "35c",
+			"damage": 2,
+			"quiverPrice": "0g-10s-50c"
+		},
+		"iron": {
+			"unitCost": "86c",
+			"damage": 3,
+			"quiverPrice": "0g-25s-86c"
+		},
+		"steal": {
+			"unitCost": "18s",
+			"damage": 4,
+			"quiverPrice": "5g-40s-0c"
+		},
+		"mithril": {
+			"unitCost": "69s",
+			"damage": 6,
+			"quiverPrice": "20g-70s-0c"
+		}
+	}
+}

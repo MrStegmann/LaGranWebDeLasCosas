@@ -1,0 +1,90 @@
+[
+	{
+		"code": "gutterspeak",
+		"label": "Viscerálico"
+	},
+	{
+		"code": "earthen",
+		"label": "Terraneo"
+	},
+	{
+		"code": "thalassian",
+		"label": "Thalassiano"
+	},
+	{
+		"code": "common",
+		"label": "Común"
+	},
+	{
+		"code": "furbolg",
+		"label": "Úrsido"
+	},
+	{
+		"code": "dwarven",
+		"label": "Enánico"
+	},
+	{
+		"code": "orcish",
+		"label": "Orco"
+	},
+	{
+		"code": "troll",
+		"label": "Zandali"
+	},
+	{
+		"code": "darnassian",
+		"label": "Darnassiano"
+	},
+	{
+		"code": "shalassian",
+		"label": "Shalassiano"
+	},
+	{
+		"code": "pandaren",
+		"label": "Pandaren"
+	},
+	{
+		"code": "vulpera",
+		"label": "Vulpera"
+	},
+	{
+		"code": "taurahe",
+		"label": "Taurahe"
+	},
+	{
+		"code": "goblin",
+		"label": "Goblin"
+	},
+	{
+		"code": "gnomish",
+		"label": "Gnomótico"
+	},
+	{
+		"code": "vrykul",
+		"label": "Vrykul"
+	},
+	{
+		"code": "draenei",
+		"label": "Draenei"
+	},
+	{
+		"code": "corvido",
+		"label": "Córvido"
+	},
+	{
+		"code": "eredun",
+		"label": "Eredun"
+	},
+	{
+		"code": "draconic",
+		"label": "Draconico"
+	},
+	{
+		"code": "kalimag",
+		"label": "Kalimag"
+	},
+	{
+		"code": "shathyar",
+		"label": "Shath'Yar"
+	}
+]

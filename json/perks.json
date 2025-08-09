@@ -1,0 +1,690 @@
+[
+	{
+		"id": 0,
+		"name": "Talentoso",
+		"description": "Mejora un talento de tu elección sin restricciones.",
+		"type": "positive",
+		"levelOne": {
+			"talent": 1
+		},
+		"levelTwo": {
+			"talent": 2
+		},
+		"levelThree": {
+			"talent": 3
+		}
+	},
+	{
+		"id": 1,
+		"name": "Atlético",
+		"description": "Mejora el talento de Atletismo. Al nivel tres, también mejora Acrobacias",
+		"type": "positive",
+		"levelOne": {
+			"athletics": 1
+		},
+		"levelTwo": {
+			"athletics": 2
+		},
+		"levelThree": {
+			"athletics": 2,
+			"acrobatics": 1
+		}
+	},
+	{
+		"id": 2,
+		"name": "Robusto",
+		"description": "Mejora el talento de Defensa Robusta. Al nivel 3, da un extra de vida.",
+		"type": "positive",
+		"levelOne": {
+			"robustDefense": 1
+		},
+		"levelTwo": {
+			"robustDefense": 2
+		},
+		"levelThree": {
+			"robustDefense": 2,
+			"health": 1
+		}
+	},
+	{
+		"id": 3,
+		"name": "Vista aguda",
+		"description": "Mejora la percepción siempre y cuando se realice usando el sentido de la vista. A nivel 3 mejora Armas Distancia.",
+		"type": "positive",
+		"levelOne": {
+			"perception": 1
+		},
+		"levelTwo": {
+			"perception": 2
+		},
+		"levelThree": {
+			"perception": 2,
+			"lrw": 1,
+			"hrw": 1
+		}
+	},
+	{
+		"id": 4,
+		"name": "Inquebrantable",
+		"description": "Mejora el talento de Resistencia a la Pérdida de Control.",
+		"type": "positive",
+		"levelOne": {
+			"clResistance": 1
+		},
+		"levelTwo": {
+			"clResistance": 2
+		},
+		"levelThree": {
+			"clResistance": 3
+		}
+	},
+	{
+		"id": 5,
+		"name": "Resiliente",
+		"description": "Mejora el talento de Resiliencia. Al nivel 3, mejora a la Fortaleza.",
+		"type": "positive",
+		"levelOne": {
+			"resilience": 1
+		},
+		"levelTwo": {
+			"resilience": 2
+		},
+		"levelThree": {
+			"resilience": 2,
+			"fortitude": 1
+		}
+	},
+	{
+		"id": 6,
+		"name": "Ambidiestro ágil",
+		"description": "Elimina la penalización al nivel 1 de las armas finas. En el resto de niveles, suma al ataque.",
+		"type": "positive",
+		"levelOne": {
+			"dual-agile": 1
+		},
+		"levelTwo": {
+			"thinWeapons": 1
+		},
+		"levelThree": {
+			"thinWeapons": 2
+		}
+	},
+	{
+		"id": 7,
+		"name": "Ambidiestro robusto",
+		"description": "Al nivel 1 reduce a la mitad la penalización por doble empuñadura de armas de 1 y 2 manos.",
+		"type": "positive",
+		"levelOne": {
+			"dual-robust": 1
+		},
+		"levelTwo": {
+			"oneHandWeapons": 1,
+			"twoHandsWeapons": 1
+		},
+		"levelThree": {
+			"oneHandWeapons": 2,
+			"twoHandsWeapons": 2
+		}
+	},
+	{
+		"id": 8,
+		"name": "Ágil",
+		"description": "Mejora el talento de Defensa Ágil. A nivel 3, mejora Acrobacias",
+		"type": "positive",
+		"levelOne": {
+			"agileDefense": 1
+		},
+		"levelTwo": {
+			"agileDefense": 2
+		},
+		"levelThree": {
+			"agileDefense": 2,
+			"acrobatics": 1
+		}
+	},
+	{
+		"id": 9,
+		"name": "Cabezota",
+		"description": "Mejora el talento de Resistencia a Aturdimientos. Al nivel 3, mejora Resistencia a Derribos.",
+		"type": "positive",
+		"levelOne": {
+			"stunResistance": 1
+		},
+		"levelTwo": {
+			"stunResistance": 2
+		},
+		"levelThree": {
+			"stunResistance": 2,
+			"knockdownResistance": 1
+		}
+	},
+	{
+		"id": 10,
+		"name": "Felino",
+		"description": "Mejora el talento de Sigilo. Al nivel 3, mejora Juego de Manos.",
+		"type": "positive",
+		"levelOne": {
+			"stealth": 1
+		},
+		"levelTwo": {
+			"stealth": 2
+		},
+		"levelThree": {
+			"stealth": 2,
+			"sleightHand": 1
+		}
+	},
+	{
+		"id": 11,
+		"name": "Preparado",
+		"description": "Mejora las tiradas de iniciativa. Al nivel 3, siempre empieza primero.",
+		"type": "positive",
+		"levelOne": {
+			"initiative": 25
+		},
+		"levelTwo": {
+			"initiative": 50
+		},
+		"levelThree": {
+			"initiative": 100
+		}
+	},
+	{
+		"id": 12,
+		"name": "Suertudo",
+		"description": "Una vez por objetivo, si logras hacer un crítico exitoso, puedes atacar o sanar una segunda vez al mismo objetivo. (Se siguen aplicando todas las reglas establecidas para un ataque normal)",
+		"type": "positive",
+		"levelOne": {
+			"lucky": 1
+		},
+		"levelTwo": {},
+		"levelThree": {}
+	},
+	{
+		"id": 13,
+		"name": "Veloz",
+		"description": "No puedes ser objetivo de agarres ni efectos de enraizado.",
+		"type": "positive",
+		"levelOne": {
+			"rooted": 1,
+			"grabbed": 1
+		}
+	},
+	{
+		"id": 14,
+		"name": "Táctico",
+		"description": "Te permite elegir en qué momento actúas, independientemente del orden de los turnos.",
+		"type": "positive",
+		"levelOne": {
+			"tactical": 1
+		}
+	},
+	{
+		"id": 15,
+		"name": "Rápido",
+		"description": "Reduce la ventaja de los enemigos por flanqueos.",
+		"type": "positive",
+		"levelOne": {
+			"flanking": 1
+		},
+		"levelTwo": {
+			"flanking": 2
+		},
+		"levelThree": {
+			"flanking": 3
+		}
+	},
+	{
+		"id": 16,
+		"name": "Abusón",
+		"description": "Aumenta el rango de los críticos.",
+		"type": "positive",
+		"levelOne": {
+			"critics": 1
+		},
+		"levelTwo": {
+			"critics": 2
+		},
+		"levelThree": {
+			"critics": 3
+		}
+	},
+	{
+		"id": 17,
+		"name": "Sensibilidad mágica",
+		"description": "Mejora las tiradas de percepción mágica.",
+		"type": "positive",
+		"levelOne": {
+			"sPerception": 1
+		},
+		"levelTwo": {
+			"sPerception": 2
+		},
+		"levelThree": {
+			"sPerception": 3
+		}
+	},
+	{
+		"id": 18,
+		"name": "Oído agudo",
+		"description": "Mejora el talento de Percepción cuando se realiza utilizando el sentido del oído",
+		"type": "positive",
+		"levelOne": {
+			"perception": 1
+		},
+		"levelTwo": {
+			"perception": 2
+		},
+		"levelThree": {
+			"perception": 3
+		}
+	},
+	{
+		"id": 19,
+		"name": "Visión nocturna",
+		"description": "Reduce la penalización por Oscuridad.",
+		"type": "positive",
+		"levelOne": {
+			"darkness": 1
+		},
+		"levelTwo": {
+			"darkness": 3
+		},
+		"levelThree": {
+			"darkness": 5
+		}
+	},
+	{
+		"id": 20,
+		"name": "Hechicero",
+		"description": "Mejora un talento de la rama de INT. Al nivel 3, reduce el coste de maná de los hechizos de ese talento en 1.",
+		"type": "positive",
+		"levelOne": {
+			"spell": 1
+		},
+		"levelTwo": {
+			"spell": 2
+		},
+		"levelThree": {
+			"manaCost": 1,
+			"spell": 2
+		}
+	},
+	{
+		"id": 21,
+		"name": "Maestro de armas",
+		"description": "Mejora todos los talentos armas. cuerpo a cuerpo (Sigue aplicandose la penalización por doble empuñadura)",
+		"type": "positive",
+		"levelOne": {
+			"thinWeapons": 1,
+			"twoHandsWeapons": 1,
+			"oneHandWeapons": 1
+		},
+		"levelTwo": {
+			"thinWeapons": 2,
+			"oneHandWeapons": 2,
+			"twoHandsWeapons": 2
+		},
+		"levelThree": {
+			"thinWeapons": 3,
+			"oneHandWeapons": 3,
+			"twoHandsWeapons": 3
+		}
+	},
+	{
+		"id": 22,
+		"name": "Bello",
+		"description": "Los NPC preferirán tratar contigo antes que cualquier otro. Los NPC se fijarán más en ti. Mejora el talento de Seducción.",
+		"type": "positive",
+		"levelOne": {
+			"seduction": 1
+		},
+		"levelTwo": {
+			"seduction": 2
+		},
+		"levelThree": {
+			"seduction": 3
+		}
+	},
+	{
+		"id": 23,
+		"name": "Aventajado",
+		"description": "Dispone de una acción extra. Se siguen aplicando todas las reglas establecidas para las acciones.",
+		"type": "positive",
+		"levelOne": {
+			"actions": 1
+		}
+	},
+	{
+		"id": 24,
+		"name": "Corredor",
+		"description": "Aumenta la distancia normal de Movimiento del personaje (Metros).",
+		"type": "positive",
+		"levelOne": {
+			"movement": 5
+		},
+		"levelTwo": {
+			"movement": 7
+		},
+		"levelThree": {
+			"movement": 10
+		}
+	},
+	{
+		"id": 25,
+		"name": "Buen aprendiz",
+		"description": "Reduce en 1 la dificultad de las tiradas en cada nivel en la categoría de Novato. Obtener el éxito de dificultad seguirá contando como éxito aunque falle en una tirada enfrentada Al alcanzar la categoría Normal en adelante, ganas más experiencia (a juicio del máster) que los demás.",
+		"type": "positive",
+		"levelOne": {
+			"novice": 1
+		}
+	},
+	{
+		"id": 26,
+		"name": "Inútil",
+		"description": "Penaliza un talento de tu elección sin restricciones.",
+		"type": "negative",
+		"levelOne": {
+			"talent": 3
+		}
+	},
+	{
+		"id": 27,
+		"name": "Débil",
+		"description": "Penaliza los talentos de Fortaleza y Defensa Robusta",
+		"type": "negative",
+		"levelOne": {
+			"robustDefense": 1,
+			"fortitude": 2
+		}
+	},
+	{
+		"id": 28,
+		"name": "Enfermizo",
+		"description": "Penaliza la resiliencia y la cantidad de vida.",
+		"type": "negative",
+		"levelOne": {
+			"resilience": 2,
+			"health": 5
+		}
+	},
+	{
+		"id": 29,
+		"name": "Ruidoso",
+		"description": "Penaliza el talento de sigilo.",
+		"type": "negative",
+		"levelOne": {
+			"stealth": 3
+		}
+	},
+	{
+		"id": 30,
+		"name": "Despistado",
+		"description": "Penaliza los talentos de Percepción y Percepción Mágica",
+		"type": "negative",
+		"levelOne": {
+			"sPerception": 3,
+			"perception": 3
+		}
+	},
+	{
+		"id": 31,
+		"name": "Torpe",
+		"description": "Penaliza los talentos de Juego de manos y todos los talentos de Armas",
+		"type": "negative",
+		"levelOne": {
+			"lrw": 2,
+			"thinWeapons": 2,
+			"hlw": 2,
+			"twoHandsWeapons": 2,
+			"oneHandWeapons": 2,
+			"sleightHand": 2
+		}
+	},
+	{
+		"id": 32,
+		"name": "Indeciso",
+		"description": "No puede atacar o curar al mismo objetivo dos turnos seguidos",
+		"type": "negative",
+		"levelOne": {
+			"indecisive": 1
+		}
+	},
+	{
+		"id": 33,
+		"name": "Vengativo",
+		"description": "Hasta que muera el primer enemigo que te ataque, sólo atacarás a ese enemigo.",
+		"type": "negative",
+		"levelOne": {
+			"vengeful": 1
+		}
+	},
+	{
+		"id": 34,
+		"name": "Fobia",
+		"description": "Elige un tipo de fobia para el personaje. Cada vez que te enfrentes a tu fobia, recibirás una penalización a todas tus tiradas.",
+		"type": "negative",
+		"levelOne": {
+			"phobia": 1
+		}
+	},
+	{
+		"id": 35,
+		"name": "Cateto",
+		"description": "Penaliza todas las tiradas mágicas.",
+		"type": "negative",
+		"levelOne": {
+			"arcane": 3,
+			"fel": 3,
+			"nature": 3,
+			"shadows": 3,
+			"astral": 3,
+			"necromancy": 3,
+			"faith": 3,
+			"elementalConnection": 3,
+			"chi": 3
+		}
+	},
+	{
+		"id": 36,
+		"name": "Sordera",
+		"description": "Penaliza el talento de Percepción siempre que implique el sentido del oído.",
+		"type": "negative",
+		"levelOne": {
+			"perception": 3
+		}
+	},
+	{
+		"id": 37,
+		"name": "Mentalidad frágil",
+		"description": "Penaliza el talento de Resistencia a la Pérdida de control",
+		"type": "negative",
+		"levelOne": {
+			"clResistance": 3
+		}
+	},
+	{
+		"id": 38,
+		"name": "Corto de miras",
+		"description": "Penaliza el talento de Percepción siempre que implique el sentido de la vista. Penaliza los ataques a distancia.",
+		"type": "negative",
+		"levelOne": {
+			"perception": 2,
+			"lrw": 2,
+			"hlw": 2
+		}
+	},
+	{
+		"id": 39,
+		"name": "Tuerto",
+		"description": "Te falta un ojo.",
+		"type": "negative",
+		"levelOne": {
+			"perception": 5,
+			"lrw": 5,
+			"hlw": 5
+		}
+	},
+	{
+		"id": 40,
+		"name": "Miedica",
+		"description": "Penaliza las iniciativas.",
+		"type": "negative",
+		"levelOne": {
+			"initiative": 100
+		}
+	},
+	{
+		"id": 41,
+		"name": "Manco",
+		"description": "Le falta una mano o un brazo.",
+		"type": "negative",
+		"levelOne": {
+			"oneArmed": 1
+		}
+	},
+	{
+		"id": 42,
+		"name": "Escuálido",
+		"description": "Penaliza los talentos de Brutalidad y DR. Si tu oponente tiene más fuerza que tú, te derribará.",
+		"type": "negative",
+		"levelOne": {
+			"brutality": 3,
+			"robustDefense": 2
+		}
+	},
+	{
+		"id": 43,
+		"name": "Asocial",
+		"description": "Penaliza todas las tiradas de Carisma",
+		"type": "negative",
+		"levelOne": {
+			"persuasion": 3,
+			"diplomacy": 3,
+			"trade": 3,
+			"taunt": 3,
+			"seduction": 3
+		}
+	},
+	{
+		"id": 44,
+		"name": "Fanático religioso",
+		"description": "Penaliza con 1 todas las tiradas si no se realizan rezos o ritos religiosos. La penalización es acumulativa. Todas las cosas en contra de tu religión te enfurece y puedes volverte hostil.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 45,
+		"name": "Buscado",
+		"description": "Siempre que se esté en pueblos o caminos, pueden aparecer mercenarios buscando tu cabeza. El máster tirará 1D100, acto seguido 1D5 para determinar cuántos mercenarios le interceden. (1D100 = <45 aparecen mercenarios)",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 46,
+		"name": "Ladrón",
+		"description": "Siempre que alguien obtenga una recompensa, deberá tirar por Voluntad + Rest. Per. Control. Deberá superar 14 si no quiere robar. Siempre que tengas la oportunidad, tratarás de robar algo.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 47,
+		"name": "Zopenco",
+		"description": "Penaliza los talentos de Resistencia a Derribos y Aturdimientos",
+		"type": "negative",
+		"levelOne": {
+			"stunResistance": 2,
+			"knockdownResistance": 2
+		}
+	},
+	{
+		"id": 48,
+		"name": "Cobarde",
+		"description": "Cada vez que el jugador se vea superado en número de enemigos o una situación que supera sus capacidades (el máster avisará al jugador), quedará aturdido y será incapaz de actuar. Tirará un dado de Voluntad + Res. Perd. Control en su turno y tendrá que superar 15.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 49,
+		"name": "Adicto al maná",
+		"description": "Cuando gastes más de la mitad de tu maná, dejarás de hacer cualquier cosa y buscarás desesperadamente recuperarlo. Siempre consumirás el doble (Gemas de maná, comida mágica, fuentes de energía, pociones de maná, etc)",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 50,
+		"name": "Ensañamiento",
+		"description": "Cuando mates a un enemigo, permanecerás un turno más atacando al cadáver.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 51,
+		"name": "Inmisericorde",
+		"description": "Ejecutarás a todos los enemigos sin piedad alguna y sin atender a nada ni nadie. No harás nunca prisioneros ni dejarás a nadie con vida. Para evitar esto, podrás lanzar un d20 VOL + Resistencia a la Pérdida de Control. Si superas o iguales 15 lo evitas.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 52,
+		"name": "Alcohólico",
+		"description": "Siempre necesitas un trago, sea cual sea la situación, sea cual sea el momento, siempre necesitas beber. Cuando no bebes durante demasiado tiempo, recibes una penalización de -3 a cualquier acción.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 53,
+		"name": "Adefesio",
+		"description": "Eres tan feo que de pequeño te ponían a dormir con los cerdos. Los NPC preferirán ignorarte antes que tener una conversación contigo. Serás recordado por lo horrible que eres.",
+		"type": "negative",
+		"levelOne": {
+			"seduction": 3
+		}
+	},
+	{
+		"id": 54,
+		"name": "Traidor",
+		"description": "No es que tengas nada en contra de tus compañeros, es que los otros pagan mejor. Siempre que se te ofrezca una suma importante para tu personaje, no tendrás dudas a la hora de dejarlos de lado. Elige algo por lo que tu personaje aceptaría sin dudar cambiar de bando.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 55,
+		"name": "Cojera",
+		"description": "Reduce a la mitad el Movimiento normal del personaje.",
+		"type": "negative",
+		"levelOne": {
+			"movement": 10
+		}
+	},
+	{
+		"id": 56,
+		"name": "Frágil",
+		"description": "Penaliza el talento de Resistencia Mágica y la efectividad de cualquier defensa mágica en 1.",
+		"type": "negative",
+		"levelOne": {
+			"magicResistance": 2
+		}
+	},
+	{
+		"id": 57,
+		"name": "Sanguijuela de maná",
+		"description": "Te deleitas con la energía de otros, lo degustas como si fuera un buen vino. Siempre que sea posible, robarás la energía a la persona más cercana (amigo o enemigo, la verdad es que te da igual) para lanzar tus hechizos.",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 58,
+		"name": "Asalvajado",
+		"description": "Penaliza todas las tiradas del personaje en zonas urbanas. Todas las tiradas reciben -3",
+		"type": "negative",
+		"levelOne": {}
+	},
+	{
+		"id": 59,
+		"name": "Desastroso",
+		"description": "La dificultad de los éxitos aumenta en 2 en la categoría Novato. En categoría Normal en adelante, recibes menos experiencia (a juicio del máster) que los demás.",
+		"type": "negative",
+		"levelOne": {}
+	}
+]

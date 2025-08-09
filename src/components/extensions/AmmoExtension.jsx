@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import SelectGAC from '../../framework/SelectGAC';
-import ammos from '../../../../json/ammos.json';
+import ammos from '@json/ammos.json';
 import InputGAC from '../../framework/InputGAC';
 import PropTypes from 'prop-types';
 

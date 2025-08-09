@@ -1,0 +1,14 @@
+{
+	"advantage": {
+		"flanking": {
+			"thinWeapons": 1,
+			"twoHandsWeapons": 1,
+			"oneHandWeapons": 1,
+			"lrw": 1,
+			"hrw": 1
+		},
+		"felled": {},
+		"highest": {},
+		"back": {}
+	}
+}

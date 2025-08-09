@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import SelectGAC from '../../framework/SelectGAC';
-import atts from '../../../../json/atts.json';
+import atts from '@json/atts.json';
 import InputGAC from '../../framework/InputGAC';
-import weapons from '../../../../json/weapons.json';
+import weapons from '@json/weapons.json';
 import PropTypes from 'prop-types';
 
 const WeaponExtension = ({ weapon, handleSetWeapon }) => {

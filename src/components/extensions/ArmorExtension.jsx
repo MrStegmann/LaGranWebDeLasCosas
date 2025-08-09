@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import SelectGAC from '../../framework/SelectGAC';
 import InputGAC from '../../framework/InputGAC';
 import { useEffect, useState, useRef } from 'react';
-import armors from '../../../../json/armor.json';
+import armors from '@json/armor.json';
 import FieldSetGAC from '../../framework/FieldSetGAC';
 
 const ArmorExtension = ({ armor, handleSetArmor }) => {

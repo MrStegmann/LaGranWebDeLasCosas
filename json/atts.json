@@ -1,0 +1,86 @@
+[
+	{
+		"code": "dexterity",
+		"label": "Destreza",
+		"talents": [
+			{ "code": "lrw", "label": "Ataque a distancia ligero" },
+			{ "code": "thinWeapons", "label": "Armas Finas" },
+			{ "code": "acrobatics", "label": "Acrobacias" },
+			{ "code": "stealth", "label": "Sigilo" },
+			{ "code": "sleightHand", "label": "Juego de manos" },
+			{ "code": "agileDefense", "label": "Defensa ágil" }
+		]
+	},
+	{
+		"code": "strength",
+		"label": "Fuerza",
+		"talents": [
+			{ "code": "hrw", "label": "Ataque a distancia pesado" },
+			{ "code": "twoHandsWeapons", "label": "Armas a dos manos" },
+			{ "code": "oneHandWeapons", "label": "Armas de una mano" },
+			{ "code": "athletics", "label": "Atletismo" },
+			{ "code": "brutality", "label": "Brutalidad" },
+			{ "code": "robustDefense", "label": "Defensa robusta" }
+		]
+	},
+	{
+		"code": "intelligence",
+		"label": "Inteligencia",
+		"talents": [
+			{ "code": "arcane", "label": "Arcano" },
+			{ "code": "fel", "label": "Vil" },
+			{ "code": "nature", "label": "Naturaleza" },
+			{ "code": "shadows", "label": "Sombras" },
+			{ "code": "astral", "label": "Astral" },
+			{ "code": "necromancy", "label": "Nigromancia" },
+			{ "code": "manaRegeneration", "label": "Regeneración de Maná" }
+		]
+	},
+	{
+		"code": "willpower",
+		"label": "Voluntad",
+		"talents": [
+			{ "code": "magicResistance", "label": "Resistencia mágica" },
+			{ "code": "clResistance", "label": "Resistencia a la pérdida de control" },
+			{ "code": "faith", "label": "Fe" },
+			{ "code": "elementalConnection", "label": "Conexión elemental" },
+			{ "code": "chi", "label": "Chi" }
+		]
+	},
+	{
+		"code": "constitution",
+		"label": "Constitución",
+		"talents": [
+			{ "code": "health", "label": "Vida" },
+			{ "code": "resilience", "label": "Resiliencia" },
+			{ "code": "stunResistance", "label": "Resistencia a aturdimientos" },
+			{ "code": "knockdownResistance", "label": "Resistencia a derribos" },
+			{ "code": "coldResistance", "label": "Resistencia al frío" },
+			{ "code": "heatResistance", "label": "Resistencia al calor" },
+			{ "code": "fortitude", "label": "Fortaleza" }
+		]
+	},
+	{
+		"code": "wisdom",
+		"label": "Sabiduría",
+		"talents": [
+			{ "code": "professions", "label": "Profesiones" },
+			{ "code": "animalConnection", "label": "Conexión animal" },
+			{ "code": "natureConnection", "label": "Conexión con la naturaleza" },
+			{ "code": "survival", "label": "Supervivencia" },
+			{ "code": "perception", "label": "Percepción" },
+			{ "code": "languages", "label": "Idiomas" }
+		]
+	},
+	{
+		"code": "charisma",
+		"label": "Carisma",
+		"talents": [
+			{ "code": "persuasion", "label": "Persuasión" },
+			{ "code": "diplomacy", "label": "Diplomacia" },
+			{ "code": "trade", "label": "Comercio" },
+			{ "code": "taunt", "label": "Provocación" },
+			{ "code": "seduction", "label": "Seducción" }
+		]
+	}
+]

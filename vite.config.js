@@ -14,8 +14,8 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			'@models': path.resolve('../models'),
-			'@json': path.resolve('../json'),
+			'@models': path.resolve('./models'),
+			'@json': path.resolve('./json'),
 		},
 	},
 });

@@ -1,0 +1,188 @@
+[
+	{
+		"_id": "0",
+		"code": "human",
+		"label": "Humano",
+		"pros": {
+			"TALENT:adapt": 1,
+			"TALENT:diplomacy": 1,
+			"TALENT:stunResistance": 1
+		},
+		"cons": {
+			"TALENT:clResistance": 2,
+			"TALENT:resilience": 1
+		},
+		"special": []
+	},
+	{
+		"_id": "1",
+		"code": "dwarf",
+		"label": "Enano",
+		"pros": {
+			"TALENT:coldResistance": 1,
+			"TALENT:brutality": 1,
+			"TALENT:robustDefense": 1
+		},
+		"cons": {
+			"TALENT:clResistance": 2,
+			"TALENT:resilience": 1
+		},
+		"special": []
+	},
+	{
+		"_id": "2",
+		"code": "gnome",
+		"label": "Gnomo",
+		"pros": {
+			"TALENT:improvement": 1,
+			"TALENT:sleightHand": 1,
+			"TALENT:magicResistance": 1
+		},
+		"cons": {
+			"TALENT:health": 2,
+			"TALENT:resilience": 1
+		},
+		"special": []
+	},
+	{
+		"_id": "3",
+		"code": "nelf",
+		"label": "Kaldorei",
+		"pros": {
+			"TALENT:stealth": 1,
+			"TALENT:natureConnection": 2
+		},
+		"cons": {
+			"TALENT:trade": 2,
+			"TALENT:arcane": 1
+		},
+		"special": ["nightVision", "superAudition"]
+	},
+	{
+		"_id": "4",
+		"code": "draenei",
+		"label": "Draenei",
+		"pros": {
+			"TALENT:jewelcrafting": 1,
+			"TALENT:faith": 2
+		},
+		"cons": {
+			"TALENT:elementalConnection": 2,
+			"TALENT:stealth": 1
+		},
+		"special": []
+	},
+	{
+		"_id": "5",
+		"code": "qelf",
+		"label": "Quel'dorei",
+		"pros": {
+			"TALENT:arcane": 1,
+			"TALENT:magicResistance": 2
+		},
+		"cons": {
+			"TALENT:robustDefense": 2,
+			"TALENT:brutality": 1
+		},
+		"special": ["nightVision", "superAudition"]
+	},
+	{
+		"_id": "6",
+		"code": "orc",
+		"label": "Orco",
+		"pros": {
+			"TALENT:brutality": 1,
+			"TALENT:elementalConnection": 2
+		},
+		"cons": {
+			"TALENT:stealth": 2,
+			"TALENT:agileDefense": 1
+		},
+		"special": ["superStrength"]
+	},
+	{
+		"_id": "7",
+		"code": "tauren",
+		"label": "Tauren",
+		"pros": {
+			"TALENT:fortitude": 2,
+			"TALENT:natureConnection": 1
+		},
+		"cons": {
+			"TALENT:agileDefense": 2,
+			"TALENT:stealth": 1
+		},
+		"special": ["superStrength"]
+	},
+	{
+		"_id": "8",
+		"code": "undead",
+		"label": "No-muerto",
+		"pros": {
+			"TALENT:clResistance": 2,
+			"TALENT:alchemy": 1
+		},
+		"cons": {
+			"TALENT:diplomacy": 2,
+			"TALENT:magicResistance": 1
+		},
+		"special": ["memberReplacement"]
+	},
+	{
+		"_id": "9",
+		"code": "belf",
+		"label": "Sin'dorei",
+		"pros": {
+			"TALENT:magicResistance": 2,
+			"TALENT:fel": 1
+		},
+		"cons": {
+			"TALENT:clResistance": 1,
+			"TALENT:robustDefense": 2
+		},
+		"special": ["superAudition"]
+	},
+	{
+		"_id": "10",
+		"code": "goblin",
+		"label": "Goblin",
+		"pros": {
+			"TALENT:trade": 2,
+			"TALENT:sleightHand": 1
+		},
+		"cons": {
+			"TALENT:diplomacy": 2,
+			"TALENT:faith": 1
+		},
+		"special": []
+	},
+	{
+		"_id": "11",
+		"code": "pandaren",
+		"label": "Pandaren",
+		"pros": {
+			"TALENT:chi": 2,
+			"TALENT:clResistance": 1
+		},
+		"cons": {
+			"TALENT:resilience": 1,
+			"TALENT:taunt": 2
+		},
+		"special": []
+	},
+	{
+		"_id": "12",
+		"code": "vrykul",
+		"label": "Vrykul",
+		"pros": {
+			"TALENT:brutality": 1,
+			"TALENT:fortitude": 1,
+			"TALENT:coldResistance": 1
+		},
+		"cons": {
+			"TALENT:stealth": 2,
+			"TALENT:clResistance": 1
+		},
+		"special": ["superStrength"]
+	}
+]

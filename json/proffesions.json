@@ -1,0 +1,54 @@
+[
+	{
+		"code": "jewelcrafting",
+		"label": "Joyería"
+	},
+	{
+		"code": "tailoring",
+		"label": "Sastrería"
+	},
+	{
+		"code": "alchemy",
+		"label": "Alquimia"
+	},
+	{
+		"code": "blacksmithing",
+		"label": "Herrería"
+	},
+	{
+		"code": "inscription",
+		"label": "Inscripción"
+	},
+	{
+		"code": "enchanting",
+		"label": "Enchantamiento"
+	},
+	{
+		"code": "engineering",
+		"label": "Ingeniería"
+	},
+	{
+		"code": "leatherworking",
+		"label": "Peletería"
+	},
+	{
+		"code": "herbalism",
+		"label": "Herbalismo"
+	},
+	{
+		"code": "mining",
+		"label": "Minería"
+	},
+	{
+		"code": "skinning",
+		"label": "Desuello"
+	},
+	{
+		"code": "cooking",
+		"label": "Cocina"
+	},
+	{
+		"code": "archaeology",
+		"label": "Arqueología"
+	}
+]

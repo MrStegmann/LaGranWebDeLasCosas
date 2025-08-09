@@ -1,0 +1,30 @@
+{
+	"worgen": {
+		"pros": {
+			"athletics": 2,
+			"brutality": 2,
+			"magicResistance": 2,
+			"resilience": 2,
+			"perception": 2
+		},
+		"cons": {
+			"clResistance": 5,
+			"stealth": 3,
+			"sleightHand": 2
+		}
+	},
+	"human": {
+		"pros": {
+			"athletics": 1,
+			"brutality": 1,
+			"magicResistance": 1,
+			"resilience": 1,
+			"perception": 1
+		},
+		"cons": {
+			"clResistance": 2,
+			"stealth": 2,
+			"sleightHand": 1
+		}
+	}
+}

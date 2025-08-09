@@ -1,6 +1,6 @@
 import SelectGAC from '../../framework/SelectGAC';
 import InputGAC from '../../framework/InputGAC';
-import shields from '../../../../json/shields.json';
+import shields from '@json/shields.json';
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import InputGAC from '../../framework/InputGAC';
-import atts from '../../../../json/atts.json';
+import atts from '@json/atts.json';
 import useSheet from '../../context/SheetContext';
 import PropTypes from 'prop-types';
 

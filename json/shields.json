@@ -1,0 +1,32 @@
+{
+	"light": {
+		"durability": 5,
+		"pDefense": 1,
+		"requirements": {},
+		"cons": {}
+	},
+	"medium": {
+		"durability": 10,
+		"pDefense": 2,
+		"requirements": {
+			"brutality": 1
+		},
+		"cons": {
+			"agileDefense": 1,
+			"acrobatics": 1
+		}
+	},
+	"heavy": {
+		"durability": 15,
+		"pDefense": 3,
+		"requirements": {
+			"brutality": 3
+		},
+		"cons": {
+			"agileDefense": 4,
+			"acrobatics": 4,
+			"movement": 2,
+			"athletics": 4
+		}
+	}
+}

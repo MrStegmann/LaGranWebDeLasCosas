@@ -1,0 +1,131 @@
+{
+	"type": {
+		"cloth": {
+			"pDefense": 0,
+			"sDefense": 4,
+			"durability": 1
+		},
+		"leather": {
+			"pDefense": 2,
+			"sDefense": 1,
+			"durability": 3
+		},
+		"mail": {
+			"pDefense": 4,
+			"sDefense": 0,
+			"durability": 5,
+			"cons": {
+				"shoulders": {
+					"acrobatics": 1
+				},
+				"chest": {
+					"acrobatics": 1,
+					"movement": 1,
+					"agileDefense": 1
+				},
+				"hands": {
+					"sleightHand": 1
+				},
+				"legs": {
+					"acrobatics": 1,
+					"movement": 1,
+					"agileDefense": 1
+				},
+				"feet": {
+					"acrobatics": 1
+				}
+			},
+			"requirements": {
+				"chest": {
+					"brutality": 1
+				},
+				"legs": {
+					"brutality": 1
+				}
+			}
+		},
+		"plate": {
+			"pDefense": 6,
+			"sDefense": 0,
+			"durability": 8,
+			"cons": {
+				"head": {
+					"acrobatics": 1,
+					"agileDefense": 1,
+					"perception": 1
+				},
+				"shoulders": {
+					"acrobatics": 1,
+					"movement": 2,
+					"agileDefense": 1
+				},
+				"chest": {
+					"acrobatics": 2,
+					"movement": 3,
+					"agileDefense": 4
+				},
+				"hands": {
+					"sleightHand": 2,
+					"acrobatics": 1
+				},
+				"legs": {
+					"acrobatics": 2,
+					"movement": 3,
+					"agileDefense": 4
+				},
+				"feet": {
+					"acrobatics": 3,
+					"movement": 2,
+					"agileDefense": 2
+				}
+			},
+			"requirements": {
+				"head": {
+					"brutality": 1
+				},
+				"shoulders": {
+					"brutality": 2
+				},
+				"chest": {
+					"brutality": 4
+				},
+				"hands": {
+					"brutality": 1
+				},
+				"legs": {
+					"brutality": 4
+				},
+				"feet": {
+					"brutality": 2
+				}
+			}
+		}
+	},
+	"reinforcement": {
+		"leather": {
+			"pDefense": 1,
+			"sDefense": 0,
+			"durability": 1
+		},
+		"mail": {
+			"pDefense": 2,
+			"sDefense": 0,
+			"durability": 2,
+			"cons": {
+				"agileDefense": 1
+			}
+		},
+		"plate": {
+			"pDefense": 3,
+			"sDefense": 0,
+			"durability": 3,
+			"cons": {
+				"agileDefense": 2,
+				"movement": 1
+			},
+			"requirements": {
+				"brutality": 1
+			}
+		}
+	}
+}

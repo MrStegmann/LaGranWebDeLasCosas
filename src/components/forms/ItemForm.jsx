@@ -11,7 +11,7 @@ import ShieldExtension from '../extensions/ShieldExtension';
 import FormGAC from '../../framework/FormGAC';
 import FieldSetGAC from '../../framework/FieldSetGAC';
 import AmmoExtension from '../extensions/AmmoExtension';
-import ammos from '../../../../json/ammos.json';
+import ammos from '@json/ammos.json';
 import PropTypes from 'prop-types';
 
 const ItemForm = ({ itemData, handleSubmit }) => {
