@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+@plugin "tailwind-scrollbar";
+
+@theme {
+	--color-parchment: #f0d9b5;
+	--color-mahogany: #5a3b2e;
+	--color-shadow: #3c291f;
+	--color-iron: #bfb8a5;
+	--color-ember: #b24d28;
+
+	--shadow-fantasy: 0 8px 16px rgba(0, 0, 0, 0.5);
+	--shadow-inner-glow: inset 0 0 6px rgba(255, 239, 213, 0.3);
+
+	--border-radius-xl: 1rem;
+	--border-radius-2xl: 1.5rem;
+	--border-radius-rounded-form: 1.25rem;
+
+	--font-family-medieval: 'Cinzel Decorative', serif;
+}
