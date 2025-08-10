@@ -2,11 +2,11 @@
 @plugin "tailwind-scrollbar";
 
 @theme {
-	--color-parchment: #f0d9b5;
-	--color-mahogany: #5a3b2e;
-	--color-shadow: #3c291f;
-	--color-iron: #bfb8a5;
-	--color-ember: #b24d28;
+	--color-mana: #69CCF0; 
+  --color-arcane-spell: #7b6ff9;
+  --color-arcane-bright: #bee3ff;
+  --color-blue-dragon: #111933;
+
 
 	--shadow-fantasy: 0 8px 16px rgba(0, 0, 0, 0.5);
 	--shadow-inner-glow: inset 0 0 6px rgba(255, 239, 213, 0.3);
@@ -16,4 +16,19 @@
 	--border-radius-rounded-form: 1.25rem;
 
 	--font-family-medieval: 'Cinzel Decorative', serif;
+}
+
+@layer utilities {
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 5px #7b6ff9, 0 0 10px #7b6ff9, 0 0 20px #7b6ff9;
+    }
+    50% {
+      box-shadow: 0 0 10px #bee3ff, 0 0 20px #bee3ff, 0 0 40px #bee3ff;
+    }
+  }
+
+  .animate-pulseGlow {
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
 }

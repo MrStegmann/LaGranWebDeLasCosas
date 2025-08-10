@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 	const onLogin = async (username) => {
 		try {
 			const response = await AuthBridge.login(username.trim());
-			localStorage.setItem("GWC-token");
+			localStorage.setItem("GWC-token", response.data.token);
 			setAuth(response.data);
 			setLoged(true);
 		} catch (error) {

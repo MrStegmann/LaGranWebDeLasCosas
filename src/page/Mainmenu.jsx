@@ -1,82 +1,100 @@
-import { Link } from 'react-router-dom';
+
 import PageGAC from '../framework/PageGAC';
 import useAuth from '../context/AuthContext';
+import GlowButtonGAC from '../framework/GlowButtonGAC';
+import GlowLinkGAC from './GlowLinkGAC';
+import { useEffect, useState } from 'react';
 
 const Mainmenu = () => {
 	const { onLogout } = useAuth();
+	const [ overSomething, setOverSomething ] = useState("");
+	const [dragonSpeech, setDragonSpeech ] = useState("")
+
+	useEffect(() => {
+		if (overSomething) {
+			if (overSomething === "thegreatbookofthings") {
+				setDragonSpeech("Ahí se recoge toda la información sobre el sistema: Como hacer una ficha nueva, los atributos, mecánicas, hacer hechizos, habilidades y mucho más. Échale u ojo de vez en cuando.")
+			}
+			if (overSomething === "grimoire") {
+				setDragonSpeech("Ahí se guardan todos los hechizos y habilidades que se han ido creando a lo largo del tiempo. No te asustes, tiene filtros para facilitar la búsqueda. También es dónde podrás crear tanto hechizos como habilidades.")
+			}
+			if (overSomething === "sheets") {
+				setDragonSpeech("Ahí se guardan todas las fichas de personaje y de Npc que se han creado hasta ahora. También es donde podrás crear nuevas fichas, tanto para Personaje como para Npc, también se actualizan existentes o se eliminan viejos.")
+			}
+			if (overSomething === "itemmaker") {
+				setDragonSpeech("Ahí se guardan la información de todos los objetos que se han creado hasta ahora. También es dónde se crean nuevos, se modifican existentes o los eliminas.")
+			}
+			if (overSomething === "logout") {
+				setDragonSpeech("¿Ya te marchas? Vaya... bueno, ¡hasta la próxima!")
+			}
+		} else {
+			setDragonSpeech("")
+		}
+		
+	}, [overSomething])
+
 	return (
 		<PageGAC>
-			{/* Encabezado */}
-			<div className="mb-16 text-center">
-				<h1 className="relative text-6xl md:text-7xl font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]">
-					Gran Aplicación de las Cosas
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						className="inline-block w-9 h-9 ml-3 -mb-1 stroke-[#dca34c] stroke-2 stroke-linejoin-round stroke-linecap-round filter drop-shadow-[0_0_1px_rgba(122,84,24,0.7)] transition-colors duration-300 hover:stroke-yellow-300"
-					>
-						<path d="M4 20c1-6 4-11 7-14" />
-						<path d="M9 18c1-4 2-8 5-10" />
-						<path d="M14 18c1-3 3-6 4-7" />
-					</svg>
-				</h1>
-				<h2 className="mt-5 relative text-4xl md:text-lg font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]">
-					Una aplicación para gestionar todas la fichas, una aplicación para hacer hechizos, hablidades y otras cosas. Una aplicación para que todos lo usen y atarlos a la aplicación.
-				</h2>
-			</div>
-
-			{/* Navegación principal */}
-			<nav role="navigation" aria-label="Menú principal" className="flex flex-col gap-6 w-full max-w-sm text-center">
+			<div className='w-full h-full flex flex-col md:flex-row justify-center md:justify-between'>
+				<div onMouseOver={e => setOverSomething(e.target.id)} className='w-1/4 px-10 flex flex-col text-mana'>
 				{[
+					{
+						to:'/the-great-book-of-things',
+						label: "El Gran Libro de las Cosas",
+						id: "thegreatbookofthings"
+					},
 					{
 						to: '/grimoire',
 						label: 'Grimorio',
-					},
-					{
-						to: '/perk-maker',
-						label: 'Rasgos',
+						id: "grimoire",
 					},
 					{
 						to: '/sheets',
 						label: 'Forja de Fichas',
+						id: "sheets"
 					},
 					{
 						to: '/item-maker',
 						label: 'Forja de Objetos',
+						id: "itemmaker"
 					},
-					{
-						to: '/oec-menu',
-						label: 'Eventos',
-					},
-					{
-						to: '/settings',
-						label: 'Ajustes',
-					},
-				].map(({ to, label }) => (
-					<Link
+				].map(({ to, label, id }) => (
+					<GlowLinkGAC
+					id={id}
 						key={to}
 						to={to}
-						className="relative z-50 flex items-center gap-2 bg-gradient-to-tr from-[#3b2b1b] to-[#5c3d2e] border-4 border-[#3b2b1b] rounded-xl px-5 py-3 font-semibold text-yellow-200 text-lg shadow-xl hover:scale-105 hover:ring-4 hover:ring-yellow-400/70 transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-yellow-400/80"
 					>
 						{label}
-					</Link>
+					</GlowLinkGAC>
 				))}
+					<GlowButtonGAC
+						id="logout"
+						onClick={onLogout}
+					>
+						Cerrar sesión
+					</GlowButtonGAC>
+				</div>
+				<div className='w-1/3'>
+					
+					<div
+						className={`
+						w-72 text-xs bg-blue-dragon/90 text-mana border rounded-4xl p-5 absolute bottom-1/3 right-1/9 ${overSomething ? "opacity-100" : "opacity-0"}
+						`}
+					>
+						{dragonSpeech}
+						{/* Cola del bocadillo */}
+						<span
+						className="absolute -bottom-2 right-6 
+									w-0 h-0 
+									border-l-[8px] border-l-transparent
+									border-r-[8px] border-r-transparent
+									border-t-[8px] border-t-mana"
+						></span>
+					</div>
+					<img className='w-64 absolute bottom-0 right-0' src='/Azulito.png' />
+				</div>
 
-				<button
-					className="relative z-50 flex items-center gap-2 bg-gradient-to-tr from-[#3b2b1b] to-[#5c3d2e] border-4 border-[#3b2b1b] rounded-xl px-5 py-3 font-semibold text-yellow-200 text-lg shadow-xl hover:scale-105 hover:ring-4 hover:ring-yellow-400/70 transition-all duration-300 active:scale-95 focus:outline-none focus:ring-4 focus:ring-yellow-400/80"
-					onClick={onLogout}
-				>
-					Cerrar sesión
-				</button>
-
-				<button
-					className="relative z-50 flex items-center gap-2 bg-gradient-to-tr from-[#5a1a1a] to-[#822323] border-4 border-[#5a1a1a] rounded-xl px-5 py-3 font-semibold text-red-300 text-lg tracking-wider shadow-lg shadow-black/90 hover:scale-105 transition-transform duration-300 active:scale-95 select-none focus:outline-none focus:ring-4 focus:ring-red-500/70"
-					onClick={() => window.api.exit()}
-				>
-					Salir
-				</button>
-			</nav>
+			</div>
 		</PageGAC>
 	);
 };
