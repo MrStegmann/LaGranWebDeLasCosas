@@ -17,6 +17,8 @@ const SSProvider = ({ children }) => {
 	const [spells, setSpells] = useState([]);
 	const [skills, setSkills] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [spellsReady, setSpellsReady ] = useState(false);
+	const [skillsReady, setSkillsReady ] = useState(false);
 
 	const getSpellById = (id) => {
 		const spell = spells.find((spell) => spell._id === id);
@@ -91,7 +93,10 @@ const SSProvider = ({ children }) => {
 			try {
 				const response = await SkillBridge.getSkills();
 				setSkills(response.data);
+				setTimeout(() => setSkillsReady(true), 1000)
+				// setSkillsReady(true);
 			} catch (error) {
+				console.log(error)
 				setAlert({ type: 'error', msg: error.message });
 				setSkills([]);
 			}
@@ -99,46 +104,50 @@ const SSProvider = ({ children }) => {
 			try {
 				const response = await SpellBridge.getSpells();
 				setSpells(response.data);
+				setTimeout(() => setSpellsReady(true), 1000)
+				// setSpellsReady(true)
 			} catch (error) {
+				console.log(error)
 				setAlert({ type: 'error', msg: error.message });
 				setSpells([]);
 			}
 
-			setLoading(false);
+			// setTimeout(() => setLoading(false), 100)
 		}, 25);
 
 		return () => clearTimeout(timeout);
 	}, []);
+
+	useEffect(() => {
+		if (skillsReady && spellsReady) setTimeout(() => setLoading(false), 100);
+	}, [skillsReady, spellsReady])
 
 	const contextValue = useMemo(
 		() => ({
 			Spell,
 			Skill,
 			spells,
+			spellsReady,
 			loading,
 			getSpellById,
 			handleCreateSpell,
 			handleUpdateSpell,
 			handleDeleteSpell,
 			skills,
+			skillsReady,
 			getSkillById,
 			handleCreateSkill,
 			handleUpdateSkill,
 			handleDeleteSkill,
 		}),
-		[spells, skills]
+		[spells, skills, skillsReady, spellsReady, loading]
 	);
 
 	return (
 		<SaSContext.Provider value={contextValue}>
-			{' '}
-			{loading ? (
-				<div className="min-h-screen bg-[#2f1f17] bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] bg-repeat flex flex-col justify-center items-center p-6 font-['Tex Gyre Schola',serif] antialiased">
-					<h2 className="text-center w-full text-6xl md:text-7xl font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]"> Cargando Hechizos y Habilidades</h2>
-				</div>
-			) : (
+			{
 				children
-			)}
+			}
 		</SaSContext.Provider>
 	);
 };

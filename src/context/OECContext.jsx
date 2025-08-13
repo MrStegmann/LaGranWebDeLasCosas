@@ -49,6 +49,7 @@ export const OECProvider = ({ children }) => {
 				const response = await OneshotBridge.get();
 				setOneshots(response.data);
 			} catch (error) {
+				console.log(error);
 				setAlert({ type: 'error', msg: error.message });
 				setOneshots([]);
 			}
@@ -71,13 +72,9 @@ export const OECProvider = ({ children }) => {
 
 	return (
 		<OECContext.Provider value={contextValue}>
-			{loading ? (
-				<div className="min-h-screen bg-[#2f1f17] bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] bg-repeat flex flex-col justify-center oecs-center p-6 font-['Tex Gyre Schola',serif] antialiased">
-					<h2 className="text-center w-full text-6xl md:text-7xl font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]"> Cargando Objetos</h2>
-				</div>
-			) : (
+			{
 				children
-			)}
+			}
 		</OECContext.Provider>
 	);
 };

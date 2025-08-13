@@ -1,0 +1,7 @@
+export default {
+    GREAT_BOOK: "GREAT_BOOK",
+    GRIMOIRE: "GRIMOIRE",
+    SHEETS: "SHEETS",
+    ITEM_MAKER: "ITEM_MAKER",
+    LOGOUT: "LOGOUT"
+}

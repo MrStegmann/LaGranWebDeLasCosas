@@ -13,6 +13,7 @@ export default () => {
 export const ItemProvider = ({ children }) => {
 	const { setAlert } = useAlert();
 	const [items, setItems] = useState([]);
+	const [ itemsReady, setItemsReady ] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const handleCreateItem = async (item) => {
@@ -49,12 +50,14 @@ export const ItemProvider = ({ children }) => {
 			try {
 				const response = await ItemBridge.getItems();
 				setItems(response.data);
+				setTimeout(() => setItemsReady(true), 1000)
 			} catch (error) {
+				console.log(error)
 				setAlert({ type: 'error', msg: error.message });
 				setItems([]);
 			}
 
-			setLoading(false);
+			// setLoading(false);
 		}, 25);
 
 		return () => clearTimeout(timeout);
@@ -64,22 +67,19 @@ export const ItemProvider = ({ children }) => {
 		() => ({
 			Item,
 			items,
+			itemsReady,
 			handleCreateItem,
 			handleUpdateItem,
 			handleDeleteItem,
 		}),
-		[items]
+		[items, itemsReady]
 	);
 
 	return (
 		<ItemContext.Provider value={contextValue}>
-			{loading ? (
-				<div className="min-h-screen bg-[#2f1f17] bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] bg-repeat flex flex-col justify-center items-center p-6 font-['Tex Gyre Schola',serif] antialiased">
-					<h2 className="text-center w-full text-6xl md:text-7xl font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]"> Cargando Objetos</h2>
-				</div>
-			) : (
+			{
 				children
-			)}
+			}
 		</ItemContext.Provider>
 	);
 };

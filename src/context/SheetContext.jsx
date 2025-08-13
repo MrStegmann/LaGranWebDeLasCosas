@@ -10,6 +10,7 @@ import { Attribute } from '@models/extensions/Attribute';
 import { Talent } from '@models/extensions/Talent';
 import PropTypes from 'prop-types';
 
+
 const SheetContext = createContext();
 
 export default () => {
@@ -19,7 +20,9 @@ export default () => {
 export const SheetProvider = ({ children }) => {
 	const { setAlert } = useAlert();
 	const [npcs, setNpcs] = useState([]);
+	const [npcsReady, setNpcsReady ] = useState(false);
 	const [chars, setChars] = useState([]);
+	const [ charsReady, setCharsReady ] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const { loading: sasLoading } = useSaS();
@@ -86,8 +89,10 @@ export const SheetProvider = ({ children }) => {
 			try {
 				const response = await NpcBridge.getNpcs();
 				setNpcs(response.data);
+				setTimeout(() => setNpcsReady(true), 1000)
 			} catch (error) {
 				setAlert({ msg: error.message, type: 'error' });
+				console.log(error)
 				setNpcs([]);
 			}
 
@@ -95,16 +100,23 @@ export const SheetProvider = ({ children }) => {
 				const response = await CharacterBridge.getCharacters();
 
 				setChars(response.data);
+				setTimeout(() => setCharsReady(true), 1000)
 			} catch (error) {
+				console.log(error)
 				setAlert({ msg: error.message, type: 'error' });
 				setChars([]);
 			}
 
-			setLoading(false);
+			// setLoading(false);
 		}, 25);
 
 		return () => clearTimeout(timeout);
 	}, [sasLoading]);
+
+	useEffect(() => {
+console.log( "Chars cargadas: ", charsReady)
+		console.log( "Npcs cargadas: ", npcsReady)
+	}, [charsReady, npcsReady])
 
 	const contextValue = useMemo(
 		() => ({
@@ -121,19 +133,17 @@ export const SheetProvider = ({ children }) => {
 			handleCreateNpc,
 			handleUpdateNpc,
 			handleDeleteNpc,
+			charsReady,
+			npcsReady
 		}),
-		[chars, npcs]
+		[chars, npcs, charsReady, npcsReady]
 	);
 
 	return (
 		<SheetContext.Provider value={contextValue}>
-			{loading ? (
-				<div className="min-h-screen bg-[#2f1f17] bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] bg-repeat flex flex-col justify-center items-center p-6 font-['Tex Gyre Schola',serif] antialiased">
-					<h2 className="text-center w-full text-6xl md:text-7xl font-extrabold text-[#dca34c] tracking-widest select-none drop-shadow-[0_0_8px_rgba(143,87,5,0.6)]"> Cargando Fichas</h2>
-				</div>
-			) : (
+			{
 				children
-			)}
+			}
 		</SheetContext.Provider>
 	);
 };
