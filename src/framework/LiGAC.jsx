@@ -1,11 +1,21 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useState } from "react";
 
 const LiGAC = ({ children }) => {
-	return <li className="bg-[#2a1c16] border border-[#4a342a] flex flex-row justify-between rounded-xl px-4 py-3 hover:ring-2 hover:ring-yellow-400 transition duration-200">{children}</li>;
+  const [isOver, setIsOver] = useState(false);
+  return (
+    <li
+      onMouseOver={() => setIsOver(true)}
+      onMouseLeave={() => setIsOver(false)}
+      className={`bg-blue-dragon/50 w-full border border-mana flex flex-row justify-between rounded-xl my-5 px-4 py-3 hover:border-arcane-spell transition duration-200 ${isOver ? "animate-pulseGlow" : ""}`}
+    >
+      {children}
+    </li>
+  );
 };
 
 LiGAC.propTypes = {
-	children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default LiGAC;

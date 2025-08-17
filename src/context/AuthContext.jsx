@@ -1,77 +1,84 @@
-import { createContext, useState, useEffect, useContext, useMemo } from 'react';
-import AuthBridge from '../bridges/AuthBridge';
-import useAlert from './AlertContext';
-import PropTypes from 'prop-types';
-import Login from '../page/Login';
+import { createContext, useState, useEffect, useContext, useMemo } from "react";
+import AuthBridge from "../bridges/AuthBridge";
+import useAlert from "./AlertContext";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import storageEnum from "../../utils/enums/storageEnum";
 
 const AuthContext = createContext();
 
 export default () => {
-	return useContext(AuthContext);
+  return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }) => {
-	const { setAlert } = useAlert();
-	const [auth, setAuth] = useState({});
-	const [loged, setLoged] = useState(false);
+  const { setAlert } = useAlert();
+  const [auth, setAuth] = useState({});
+  const [loged, setLoged] = useState(false);
 
-	const onLogin = async (username) => {
-		try {
-			const response = await AuthBridge.login(username.trim());
-			localStorage.setItem("GWC-token", response.data.token);
-			setAuth(response.data);
-			setLoged(true);
-		} catch (error) {
-			setAlert({ type: 'error', msg: error.message });
-		}
-	};
+  const navigate = useNavigate();
 
-	const onLogout = async () => {
-		try {
-			const token = localStorage.getItem("GWC-token");
-			await AuthBridge.logout(token);
-			setAuth({});
-			setLoged(false);
-						localStorage.removeItem("GWC-token");
+  const onLogin = async (username, password) => {
+    try {
+      const response = await AuthBridge.login({ username, password });
+      localStorage.setItem(storageEnum.GWC_TOKEN, response.data.token);
+      setAuth(response.data);
+      setLoged(true);
+      navigate(`/${response.data.username}/`);
+    } catch (error) {
+      setAlert({ type: "error", msg: error.message, destroy: true });
+    }
+  };
 
-		} catch (error) {
-			console.log(error);
-			setAlert({ type: 'error', msg: error.message });
-		}
-	};
+  const onLogout = async () => {
+    try {
+      const token = localStorage.getItem(storageEnum.GWC_TOKEN);
+      await AuthBridge.logout(token);
+      setAuth({});
+      setLoged(false);
+      localStorage.removeItem(storageEnum.GWC_TOKEN);
+      navigate(`/`);
+    } catch (error) {
+      console.log(error);
+      setAlert({ type: "error", msg: error.message, destroy: true });
+    }
+  };
 
-	const onAutoLogin = async () => {
-		try {
-			const token = localStorage.getItem("GWC-token");
-			if (!token) return;
-			const response = await AuthBridge.autoLogin(token);
-			setAuth(response.data);
-			setLoged(true);
-		} catch (error) {
-			setAlert({ type: 'error', msg: error.message });
-		}
-	};
+  const onAutoLogin = async () => {
+    try {
+      const token = localStorage.getItem(storageEnum.GWC_TOKEN);
+      if (!token) return;
+      const response = await AuthBridge.autoLogin(token);
+      setAuth(response.data);
+      setLoged(true);
+      navigate(`/${response.data.username}/`);
+    } catch (error) {
+      setAlert({ type: "error", msg: error.message, destroy: true });
+    }
+  };
 
-	useEffect(() => {
-		if (loged) return;
+  useEffect(() => {
+    if (loged) return;
 
-		onAutoLogin();
-	}, [auth, loged]);
+    onAutoLogin();
+  }, [auth, loged]);
 
-	const contextValue = useMemo(
-		() => ({
-			auth,
-			loged,
-			onLogin,
-			onLogout,
-			onAutoLogin,
-		}),
-		[auth, loged]
-	);
+  const contextValue = useMemo(
+    () => ({
+      auth,
+      loged,
+      onLogin,
+      onLogout,
+      onAutoLogin,
+    }),
+    [auth, loged]
+  );
 
-	return <AuthContext.Provider value={contextValue}>{!loged ? <Login onSubmit={onLogin} /> : children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };
 
 AuthProvider.propTypes = {
-	children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };

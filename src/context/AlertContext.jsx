@@ -1,68 +1,48 @@
-import { createContext, useState, useEffect, useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import { createContext, useState, useEffect, useContext, useMemo } from "react";
+import PropTypes from "prop-types";
+import AzulitoDrake from "../components/AzulitoDrake";
 
 const AlertContext = createContext();
 
 export default () => {
-	return useContext(AlertContext);
+  return useContext(AlertContext);
 };
 
 export const AlertProvider = ({ children }) => {
-	const [alert, setAlert] = useState({});
-	const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState({});
 
-	const { msg, type = 'info' } = alert;
+  const { msg, destroy, type = "info", deathTime = 5000 } = alert;
 
-	useEffect(() => {
-		if (msg) {
-			setShow(true);
-			const timeout = setTimeout(() => {
-				if (type === 'error') window?.api?.logFrontendError(alert);
+  useEffect(() => {
+    if (msg) {
+      if (destroy) setTimeout(() => setAlert({}), deathTime);
+    }
+  }, [msg]);
 
-				setShow(false);
-				setTimeout(() => setAlert({}), 300); // Espera a que termine la animación antes de limpiar
-			}, 3000);
-			return () => clearTimeout(timeout);
-		}
-	}, [msg]);
+  const contextValue = useMemo(
+    () => ({
+      alert,
+      setAlert,
+    }),
+    [alert]
+  );
 
-	const typeStyles = {
-		success: 'bg-green-500',
-		error: 'bg-red-500',
-		falta: 'bg-red-500',
-		warning: 'bg-yellow-500 text-black',
-		info: 'bg-blue-500',
-	};
+  return (
+    <AlertContext.Provider value={contextValue}>
+      {children}
 
-	const contextValue = useMemo(
-		() => ({
-			setAlert,
-		}),
-		[alert]
-	);
-
-	return (
-		<AlertContext.Provider value={contextValue}>
-			{children}
-
-			{/* Tarjeta de alerta con animación */}
-			{msg && (
-				<div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
-					<div
-						className={`transition-all duration-300 ease-in-out transform
-              ${show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}
-              px-6 py-4 rounded-xl shadow-lg text-white
-              ${typeStyles[type] || typeStyles.info}
-            `}
-					>
-						{msg}
-					</div>
-				</div>
-			)}
-		</AlertContext.Provider>
-	);
+      <div className="relative w-full">
+        <div className="absolute bottom-10 right-10">
+          <AzulitoDrake
+            overSomething={`${alert?.msg ? "true" : ""}`}
+            dragonSpeech={msg}
+          />
+        </div>
+      </div>
+    </AlertContext.Provider>
+  );
 };
 
 AlertProvider.propTypes = {
-	children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };

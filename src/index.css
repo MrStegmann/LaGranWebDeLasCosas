@@ -1,30 +1,36 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "tailwind-scrollbar";
 
 @theme {
-	--color-mana: #69CCF0; 
+  --color-mana: #69ccf0;
   --color-arcane-spell: #7b6ff9;
   --color-arcane-bright: #bee3ff;
   --color-blue-dragon: #111933;
 
+  --shadow-fantasy: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-inner-glow: inset 0 0 6px rgba(255, 239, 213, 0.3);
 
-	--shadow-fantasy: 0 8px 16px rgba(0, 0, 0, 0.5);
-	--shadow-inner-glow: inset 0 0 6px rgba(255, 239, 213, 0.3);
+  --border-radius-xl: 1rem;
+  --border-radius-2xl: 1.5rem;
+  --border-radius-rounded-form: 1.25rem;
 
-	--border-radius-xl: 1rem;
-	--border-radius-2xl: 1.5rem;
-	--border-radius-rounded-form: 1.25rem;
-
-	--font-family-medieval: 'Cinzel Decorative', serif;
+  --font-family-medieval: "Cinzel Decorative", serif;
 }
 
 @layer utilities {
   @keyframes pulseGlow {
-    0%, 100% {
-      box-shadow: 0 0 5px #7b6ff9, 0 0 10px #7b6ff9, 0 0 20px #7b6ff9;
+    0%,
+    100% {
+      box-shadow:
+        0 0 5px #7b6ff9,
+        0 0 10px #7b6ff9,
+        0 0 20px #7b6ff9;
     }
     50% {
-      box-shadow: 0 0 10px #bee3ff, 0 0 20px #bee3ff, 0 0 40px #bee3ff;
+      box-shadow:
+        0 0 10px #bee3ff,
+        0 0 20px #bee3ff,
+        0 0 40px #bee3ff;
     }
   }
 

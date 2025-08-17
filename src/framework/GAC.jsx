@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-const GAC = ({children}) => {
+const GAC = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[url('/bg-magic.png')] bg-cover flex flex-col justify-center items-center p-6 antialiased">{children}</div>
-  )
-}
+    <div className="min-h-screen flex flex-col p-6 antialiased">{children}</div>
+  );
+};
 
-export default GAC
+export default GAC;
