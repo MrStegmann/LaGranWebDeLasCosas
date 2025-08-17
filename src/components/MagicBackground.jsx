@@ -278,7 +278,10 @@ const MagicBackground = ({ children }) => {
   }, []);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+    <div
+      className="overflow-hidden"
+      style={{ position: "relative", width: "100%", height: "100vh" }}
+    >
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>
         <color attach="background" args={["#000000"]} />
         <fog attach="fog" args={[fogColor, 5.5, 38]} />

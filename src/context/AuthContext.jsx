@@ -24,9 +24,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem(storageEnum.GWC_TOKEN, response.data.token);
       setAuth(response.data);
       setLoged(true);
-      navigate(`/${response.data.username}/`);
+      return { status: "success", navigate: `/${response.data.username}/` };
     } catch (error) {
       setAlert({ type: "error", msg: error.message, destroy: true });
+      return { status: "error", navigate: null };
     }
   };
 
