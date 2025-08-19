@@ -30,27 +30,32 @@ const Mainmenu = () => {
       if (overSomething === MainMenuEnum.GREAT_BOOK) {
         setAlert({
           msg: "¡Ah! El Codex. Ahí tienes toda la información sobre el sistema de dados, mecánicas, guías, explicaciones, etc. A mi Codex no me gusta, prefiero... ¡El Gran Libro de las Cosas!",
+          type: "info",
         });
       }
       if (overSomething === MainMenuEnum.GRIMOIRE) {
         setAlert({
           msg: "¿Te interesa la magia? ¿O eres más de habilidades únicas? Bueno, esta sección tiene ambas. Yo prefiero la magia, la verdad... ¿De qué hablabamos? ¡Ah! ¡Si! En el grimorio podrás crear, actualizar o ver hechizos y habilidades.",
+          type: "info",
         });
       }
       if (overSomething === MainMenuEnum.SHEETS) {
         setAlert({
           msg: "¿En busca de alguien? Bueno, en la gran Librería encontrarás información de cualquiera.... También puedes añadir la ficha de alguien que no está o la tuya misma. ¡Es importante tener toda la información reunida y organizada!",
+          type: "info",
         });
       }
       if (overSomething === MainMenuEnum.ITEM_MAKER) {
         setAlert({
           msg: "¿Buscando un nuevo artefacto? ¡En la forja encontrarás todos los objetos! Desde los más comunes hasta los más inusuales y legendarios. ¡También puedes crear nuevos objetos si eres un gran forjador!",
+          type: "info",
         });
       }
       if (overSomething === MainMenuEnum.LOGOUT) {
         setAlert({
           msg: "¿Ya te marchas? Vaya... bueno, ¡hasta la próxima!",
           destroy: true,
+          type: "info",
         });
       }
     } else {
@@ -67,10 +72,10 @@ const Mainmenu = () => {
 
   return (
     <PageGAC>
-      <div className="w-full h-full flex flex-col justify-center items-start">
+      <div className="w-full flex flex-col relative ">
         <div
           onMouseOver={(e) => setOverSomething(e.target.id)}
-          className={`w-1/4 space-y-5 flex flex-col transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
+          className={`absolute -top-[13vh] left-[12vw] w-1/4 backdrop-blur-sm rounded-2xl shadow-lg shadow-mana/60 px-8 py-5 space-y-5 flex flex-col transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
         >
           {[
             {

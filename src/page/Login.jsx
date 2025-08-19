@@ -66,9 +66,9 @@ const Login = () => {
     }
   };
   return (
-    <div className="w-full min-h-screen flex flex-col relative">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center text-center">
       <div
-        className={`absolute top-[28.5vh] left-[20vw] w-2/9 transition-all duration-1000 ${isDisappearing ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"} backdrop-blur-sm rounded-2xl shadow-lg shadow-mana/60`}
+        className={` w-2/9 transition-all duration-1000 ${isDisappearing ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"} `}
       >
         <MinimalForm onSubmit={handleSubmit} buttonText={"Acceder"}>
           <h2 className="text-3xl mb-5 font-bold">Iniciar Sesión</h2>
@@ -78,7 +78,9 @@ const Login = () => {
             </label>
             <InputGAC
               id="username"
-              customClass={"w-full"}
+              customClass={
+                "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
+              }
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -90,7 +92,9 @@ const Login = () => {
             </label>
             <InputGAC
               id="password"
-              customClass={"w-full"}
+              customClass={
+                "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
+              }
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

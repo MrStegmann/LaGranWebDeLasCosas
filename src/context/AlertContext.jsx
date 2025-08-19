@@ -32,7 +32,7 @@ export const AlertProvider = ({ children }) => {
       {children}
 
       <div className="relative w-full">
-        <div className={`absolute bottom-[34vh] right-[26vw]`}>
+        <div className={`absolute bottom-[25vh] right-[15vw]`}>
           <AzulitoDrake
             overSomething={`${alert?.msg ? "true" : ""}`}
             dragonSpeech={msg}

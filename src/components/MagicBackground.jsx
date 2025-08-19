@@ -213,7 +213,7 @@ function RandomParticleEmitter({
 
 const MagicBackground = ({ children }) => {
   const beamColor = "#7dd3fc";
-  const spherePos = [0, -5, -25];
+  const spherePos = [-10, 1.5, -23];
 
   const [intensity, setIntensity] = useState(0); // brillo esfera
   const [bloomIntensity, setBloomIntensity] = useState(0); // bloom global
