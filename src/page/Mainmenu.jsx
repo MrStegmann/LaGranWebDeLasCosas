@@ -1,24 +1,28 @@
 import PageGAC from "../framework/PageGAC";
 import useAuth from "../context/AuthContext";
-import GlowButtonGAC from "../framework/GlowButtonGAC";
-import GlowLinkGAC from "../framework/GlowLinkGAC";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAlert from "../context/AlertContext";
 
 import MainMenuEnum from "../../utils/enums/MainMenuEnum";
+import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
 
+  const [toAppear, setToAppear] = useState(false);
+
   const [overSomething, setOverSomething] = useState("true");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    setAlert({
-      msg: `¡Hola ${username}! Me alegra verte por aquí.`,
-    });
+    const timeout = setTimeout(() => {
+      setToAppear(true);
+    }, 800);
+    return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
@@ -54,12 +58,19 @@ const Mainmenu = () => {
     }
   }, [overSomething]);
 
+  const navigateTo = (path) => {
+    setToAppear(false);
+    setTimeout(() => {
+      navigate(path);
+    }, 800);
+  };
+
   return (
     <PageGAC>
-      <div className="w-full h-full flex flex-col md:flex-row justify-center md:justify-between">
+      <div className="w-full h-full flex flex-col justify-center items-start">
         <div
           onMouseOver={(e) => setOverSomething(e.target.id)}
-          className="w-1/4 px-10 flex flex-col text-mana"
+          className={`w-1/4 space-y-5 flex flex-col transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
         >
           {[
             {
@@ -83,13 +94,13 @@ const Mainmenu = () => {
               id: MainMenuEnum.ITEM_MAKER,
             },
           ].map(({ to, label, id }) => (
-            <GlowLinkGAC id={id} key={to} to={to}>
+            <MinimalGlowingBtn id={id} onClick={() => navigateTo(to)} key={id}>
               {label}
-            </GlowLinkGAC>
+            </MinimalGlowingBtn>
           ))}
-          <GlowButtonGAC id={MainMenuEnum.LOGOUT} onClick={onLogout}>
+          <MinimalGlowingBtn id={MainMenuEnum.LOGOUT} onClick={onLogout}>
             Cerrar sesión
-          </GlowButtonGAC>
+          </MinimalGlowingBtn>
         </div>
       </div>
     </PageGAC>

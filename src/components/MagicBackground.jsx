@@ -279,7 +279,7 @@ const MagicBackground = ({ children }) => {
 
   return (
     <div
-      className="overflow-hidden"
+      className="overflow-hidden bg-black"
       style={{ position: "relative", width: "100%", height: "100vh" }}
     >
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>

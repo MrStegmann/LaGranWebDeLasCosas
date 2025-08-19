@@ -1,90 +1,80 @@
 import { useState, useEffect } from "react";
 import PageGAC from "../framework/PageGAC";
-import { useParams } from "react-router-dom";
-import GlowLinkGAC from "../framework/GlowLinkGAC";
-import AzulitoDrake from "../components/AzulitoDrake";
+import { useParams, useNavigate } from "react-router-dom";
 import CodexEnum from "../../utils/enums/CodexEnum";
+import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
+import useAlert from "../context/AlertContext";
 
 const Codex = () => {
+  const { setAlert } = useAlert();
   const { username } = useParams();
   const [overSomething, setOverSomething] = useState("");
-  const [dragonSpeech, setDragonSpeech] = useState("");
+
+  const [toRead, setToRead] = useState("");
+
+  const [toAppear, setToAppear] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setToAppear(true);
+    }, 800);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     if (overSomething) {
-      if (overSomething === CodexEnum.MECHANICS) {
-        setDragonSpeech(
-          "¿Un repaso de las mecánicas del sistema? Siempre es bueno darle un repaso por si necesitas salvar cualquier situación. Me encanta ver cuando los jugadores usan sus conocimientos en el sistema para contraargumentar al máster."
-        );
-      }
       if (overSomething === CodexEnum.BACK) {
-        setDragonSpeech("¿Ya has visto todo lo que necesitabas ver?");
+        setAlert({ msg: "¿Ya has visto todo lo que necesitabas ver?" });
       }
     } else {
-      setDragonSpeech("");
+      setAlert({ msg: "" });
     }
   }, [overSomething]);
+
+  const navigateTo = (path) => {
+    setToAppear(false);
+    setTimeout(() => {
+      navigate(path);
+    }, 800);
+  };
+
   return (
     <PageGAC>
-      <div className="w-full h-full flex flex-col md:flex-row justify-center md:justify-between">
+      <div className="w-full h-full flex flex-row">
         <div
           onMouseOver={(e) => setOverSomething(e.target.id)}
-          className="w-1/4 px-10 flex flex-col text-mana"
+          className={`w-1/4 space-y-5 flex flex-col justify-center transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
         >
           {[
             {
-              to: `/${username}/codex/new-character`,
-              label: "Nuevo Personaje",
-              id: CodexEnum.NEW_CHARACTER,
+              to: "VIEW_CODEX",
+              label: "Ver Codex",
+              id: "VIEW_CODEX",
             },
             {
-              to: `/${username}/codex/sas`,
-              label: "Hechizos y Habilidades",
-              id: CodexEnum.SAS,
+              to: "CREATE_CODEX_FRAGMENT",
+              label: "Nuevo fragmento",
+              id: "CREATE_CODEX_FRAGMENT",
             },
             {
-              to: `/${username}/codex/professions`,
-              label: "Profesiones",
-              id: CodexEnum.PROFESSIONS,
-            },
-            {
-              to: `/${username}/codex/languages`,
-              label: "Idiomas",
-              id: CodexEnum.LANGUAGES,
-            },
-            {
-              to: `/${username}/codex/mechanics`,
-              label: "Mecánicas",
-              id: CodexEnum.MECHANICS,
-            },
-            {
-              to: `/${username}/codex/magic`,
-              label: "Magia",
-              id: CodexEnum.MAGIC,
-            },
-            {
-              to: `/${username}/codex/new_npc`,
-              label: "Crear un NPC",
-              id: CodexEnum.NEW_NPC,
-            },
-            {
-              to: `/${username}/`,
-              label: "Volver",
-              id: CodexEnum.BACK,
+              to: "EDIT_CODEX_FRAGMENT",
+              label: "Editar fragmento",
+              id: "EDIT_CODEX_FRAGMENT",
             },
           ].map(({ to, label, id }) => (
-            <GlowLinkGAC id={id} key={to} to={to}>
+            <MinimalGlowingBtn id={id} onClick={() => setToRead(to)} key={id}>
               {label}
-            </GlowLinkGAC>
+            </MinimalGlowingBtn>
           ))}
-        </div>
-        <div className="relative w-1/3">
-          <div className="absolute bottom-0 right-0">
-            <AzulitoDrake
-              overSomething={overSomething}
-              dragonSpeech={dragonSpeech}
-            />
-          </div>
+          <MinimalGlowingBtn
+            id={CodexEnum.BACK}
+            onClick={() => navigateTo(`/${username}/`)}
+            key={CodexEnum.BACK}
+          >
+            Volver
+          </MinimalGlowingBtn>
         </div>
       </div>
     </PageGAC>

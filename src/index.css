@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-mana: #69ccf0;
@@ -36,5 +37,41 @@
 
   .animate-pulseGlow {
     animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseTextGlow {
+    0%,
+    100% {
+      text-shadow:
+        0 0 2px #7b6ff9,
+        0 0 5px #7b6ff9,
+        0 0 10px #7b6ff9;
+    }
+    50% {
+      text-shadow:
+        0 0 5px #bee3ff,
+        0 0 10px #bee3ff,
+        0 0 20px #bee3ff;
+    }
+  }
+
+  .animate-pulseTextGlow {
+    animation: pulseTextGlow 2.5s ease-in-out infinite;
+  }
+}
+
+body {
+  background-color: black;
+}
+
+@layer components {
+  .prose :is(h1, h2, h3, h4) {
+    color: inherit;
+  }
+  .prose p {
+    color: inherit;
+  }
+  .prose strong {
+    color: inherit;
   }
 }

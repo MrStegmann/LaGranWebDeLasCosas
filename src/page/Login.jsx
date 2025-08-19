@@ -4,6 +4,12 @@ import useAuth from "../context/AuthContext";
 import { useState } from "react";
 import MinimalForm from "../framework/MinimalForm";
 import { useNavigate } from "react-router-dom";
+import GeneralWelcome from "../../utils/azulitomsg/GeneralWelcome";
+import MorningWelcome from "../../utils/azulitomsg/MorningWelcome";
+import EveningWelcome from "../../utils/azulitomsg/EveningWelcome";
+import NoonWelcome from "../../utils/azulitomsg/NoonWelcome";
+import MsgFormater from "../../utils/azulitomsg/MsgFormater";
+import Times from "../../utils/Times";
 
 const Login = () => {
   const { setAlert } = useAlert();
@@ -34,6 +40,25 @@ const Login = () => {
     const result = await onLogin(username, password);
     if (result.status === "success") {
       setIsDisappearing(true);
+      let welcomeMessages;
+      const times = new Times();
+      if (times.isMorning()) {
+        welcomeMessages =
+          MorningWelcome[Math.floor(Math.random() * MorningWelcome.length)];
+      } else if (times.isEvening()) {
+        welcomeMessages =
+          EveningWelcome[Math.floor(Math.random() * EveningWelcome.length)];
+      } else if (times.isNoon()) {
+        welcomeMessages =
+          NoonWelcome[Math.floor(Math.random() * NoonWelcome.length)];
+      } else {
+        welcomeMessages =
+          GeneralWelcome[Math.floor(Math.random() * GeneralWelcome.length)];
+      }
+      const formattedMsg = MsgFormater.setParams(welcomeMessages, [username]);
+      setAlert({
+        msg: formattedMsg,
+      });
       setTimeout(() => {
         navigate(result.navigate);
       }, 1200);
