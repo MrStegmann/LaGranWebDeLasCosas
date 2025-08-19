@@ -11,8 +11,8 @@ export default () => {
 export const AlertProvider = ({ children }) => {
   const [alert, setAlert] = useState({});
 
-  const { msg, destroy, type = "info", deathTime = 5000 } = alert;
-
+  const { msg, destroy, type = "", deathTime = 5000 } = alert;
+  // info, error, warning,
   useEffect(() => {
     if (msg) {
       if (destroy) setTimeout(() => setAlert({}), deathTime);
@@ -32,10 +32,11 @@ export const AlertProvider = ({ children }) => {
       {children}
 
       <div className="relative w-full">
-        <div className="absolute bottom-10 right-10">
+        <div className={`absolute bottom-[34vh] right-[26vw]`}>
           <AzulitoDrake
             overSomething={`${alert?.msg ? "true" : ""}`}
             dragonSpeech={msg}
+            dragonType={type}
           />
         </div>
       </div>

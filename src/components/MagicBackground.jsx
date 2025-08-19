@@ -213,7 +213,7 @@ function RandomParticleEmitter({
 
 const MagicBackground = ({ children }) => {
   const beamColor = "#7dd3fc";
-  const spherePos = [10, -2, -25];
+  const spherePos = [0, -5, -25];
 
   const [intensity, setIntensity] = useState(0); // brillo esfera
   const [bloomIntensity, setBloomIntensity] = useState(0); // bloom global
@@ -284,7 +284,7 @@ const MagicBackground = ({ children }) => {
     >
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>
         <color attach="background" args={["#000000"]} />
-        <fog attach="fog" args={[fogColor, 5.5, 38]} />
+        <fog attach="fog" args={[fogColor, 10, 35]} />
 
         {/* Esfera central con intensidad animada */}
         <GlowingSphere
@@ -296,15 +296,15 @@ const MagicBackground = ({ children }) => {
 
         {/* Rayos */}
         <LightBeam
-          position={[spherePos[0] - 8, spherePos[1], spherePos[2]]}
-          rotation={[1.5, 0, 5]}
+          position={[spherePos[0] - 7.7, spherePos[1], spherePos[2]]}
+          rotation={[0, 0, Math.PI / -2]}
           radiusTop={lightBeamLeftRadiusTop}
           radiusBottom={0}
           color={beamColor}
         />
         <LightBeam
-          position={[spherePos[0] + 8, spherePos[1] - 0.1, spherePos[2]]}
-          rotation={[-1.6, 0, -5]}
+          position={[spherePos[0] + 7.7, spherePos[1] + 0.02, spherePos[2]]}
+          rotation={[0, 0, Math.PI / 2]}
           radiusTop={lightBeamRightRadiusTop}
           radiusBottom={0}
           color={beamColor}
@@ -328,7 +328,7 @@ const MagicBackground = ({ children }) => {
           <Bloom
             mipmapBlur
             intensity={bloomIntensity}
-            luminanceThreshold={0.01}
+            luminanceThreshold={0.001}
             luminanceSmoothing={0.1}
           />
         </EffectComposer>

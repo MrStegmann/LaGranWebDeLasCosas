@@ -8,6 +8,12 @@
   --color-arcane-bright: #bee3ff;
   --color-blue-dragon: #111933;
 
+  --color-void: #191834;
+  --color-arcane-spell-2: #2b2c68;
+  --color-blue-dragon-2: #338aca;
+  --color-mana-2: #26b7cd;
+  --color-chi: #61bdaf;
+
   --shadow-fantasy: 0 8px 16px rgba(0, 0, 0, 0.5);
   --shadow-inner-glow: inset 0 0 6px rgba(255, 239, 213, 0.3);
 

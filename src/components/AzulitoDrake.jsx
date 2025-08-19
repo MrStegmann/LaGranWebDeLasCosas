@@ -1,15 +1,15 @@
 import React from "react";
 
-const AzulitoDrake = ({ overSomething, dragonSpeech }) => {
+const AzulitoDrake = ({ overSomething, dragonSpeech, dragonType }) => {
   return (
     <div className="relative w-64 flex flex-col items-center">
       {/* Disco flotante */}
-      <div className="absolute bottom-0 w-80 h-6 bg-gray-800 rounded-full shadow-lg shadow-mana/60 blur-[1px]" />
+      <div className="absolute bottom-0 w-80 h-6 rounded-full backdrop-blur-sm shadow-lg shadow-mana/60" />
 
       {/* Imagen del dragón posado */}
       <img
         className="relative z-10 w-full h-auto -mb-2"
-        src="/Azulito.png"
+        src={`/Azulito_${dragonType}.png`}
         alt="Azulito Drake"
       />
 

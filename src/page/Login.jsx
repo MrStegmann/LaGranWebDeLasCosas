@@ -1,7 +1,7 @@
 import InputGAC from "../framework/InputGAC";
 import useAlert from "../context/AlertContext";
 import useAuth from "../context/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MinimalForm from "../framework/MinimalForm";
 import { useNavigate } from "react-router-dom";
 import GeneralWelcome from "../../utils/azulitomsg/GeneralWelcome";
@@ -25,14 +25,14 @@ const Login = () => {
     e.preventDefault();
     if (username.length === 0)
       return setAlert({
-        type: "error",
+        type: "warning",
         msg: "Necesito que me des tu nombre para revisarlo en la lista de personas permitidas...",
         destroy: true,
       });
 
     if (password.length === 0)
       return setAlert({
-        type: "error",
+        type: "warning",
         msg: "Necesito que me des tu contraseña para poder verificar que eres tú...",
         destroy: true,
       });
@@ -58,6 +58,7 @@ const Login = () => {
       const formattedMsg = MsgFormater.setParams(welcomeMessages, [username]);
       setAlert({
         msg: formattedMsg,
+        type: "info",
       });
       setTimeout(() => {
         navigate(result.navigate);
@@ -65,12 +66,12 @@ const Login = () => {
     }
   };
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center">
+    <div className="w-full min-h-screen flex flex-col relative">
       <div
-        className={`w-1/4 transition-all duration-1000 ${isDisappearing ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
+        className={`absolute top-[28.5vh] left-[20vw] w-2/9 transition-all duration-1000 ${isDisappearing ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"} backdrop-blur-sm rounded-2xl shadow-lg shadow-mana/60`}
       >
         <MinimalForm onSubmit={handleSubmit} buttonText={"Acceder"}>
-          <h2 className="text-3xl mb-5 font-bold">Inicio de sesión</h2>
+          <h2 className="text-3xl mb-5 font-bold">Iniciar Sesión</h2>
           <div className="col-span-3">
             <label htmlFor="username" className="block mb-1 font-semibold">
               Usuario
