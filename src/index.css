@@ -81,3 +81,9 @@ body {
     color: inherit;
   }
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #111933 inset !important; /* tu color de fondo */
+  -webkit-text-fill-color: #69ccf0 !important; /* tu color de texto */
+  transition: background-color 5000s ease-in-out 0s; /* evita parpadeo */
+}
