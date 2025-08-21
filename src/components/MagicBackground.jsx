@@ -1,9 +1,12 @@
 // MagicBackground.jsx
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, Text } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
+import { useMagicBgStore } from "../store/MagicBGStore";
+import { animated, useSpring } from "@react-spring/three";
+import Aritmetic from "../../utils/Aritmetic";
 
 // -------------------- Esfera que brilla --------------------
 function GlowingSphere({
@@ -13,86 +16,173 @@ function GlowingSphere({
   intensity,
 }) {
   return (
-    <mesh position={position}>
-      <sphereGeometry args={[radius, 64, 32]} />
+    <animated.mesh position={position}>
+      {/* 🔹 Geometría reducida para performance (de 64/32 → 32/16) */}
+      <sphereGeometry args={[radius, 32, 16]} />
       <meshStandardMaterial
         color={color}
         emissive={color}
-        emissiveIntensity={intensity} // <- intensidad dinámica
+        emissiveIntensity={intensity}
         metalness={0}
         roughness={0.3}
         side={THREE.FrontSide}
       />
-    </mesh>
+    </animated.mesh>
   );
 }
 
-// -------------------- Rayo de Luz Cónico --------------------
+// -------------------- Runa individual --------------------
+function RuneSymbol({ position, symbol, delay }) {
+  const ref = useRef();
+  const timeRef = useRef(0);
+  const opacityRef = useRef(0); // invisible al inicio
+  const scaleRef = useRef(0.1); // pequeñito al inicio
+
+  useFrame((_, delta) => {
+    if (!ref.current) return;
+    timeRef.current += delta;
+
+    // 🔹 Antes del delay: forzar invisibilidad y escala mínima
+    if (timeRef.current < delay) {
+      ref.current.material.opacity = 0;
+      ref.current.scale.setScalar(0.1);
+      return;
+    }
+
+    // 🔹 Después del delay: animación normal
+    if (opacityRef.current < 1 && scaleRef.current < 1.5) {
+      opacityRef.current = Math.min(opacityRef.current + delta * 0.8, 1);
+      scaleRef.current = Math.min(scaleRef.current + delta, 1.5);
+    } else {
+      opacityRef.current = Math.max(opacityRef.current - delta * 0.3, 0);
+    }
+
+    ref.current.scale.setScalar(scaleRef.current);
+    ref.current.rotation.y += delta * 0.05;
+    ref.current.material.opacity = opacityRef.current;
+  });
+
+  return (
+    <Text
+      ref={ref}
+      position={position}
+      fontSize={0.1}
+      color="#7dd3fc"
+      anchorX="center"
+      anchorY="middle"
+      transparent
+    >
+      {symbol}
+    </Text>
+  );
+}
+
+// -------------------- Columna de runas --------------------
+function RuneColumn({ viewport, symbols = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃ" }) {
+  const { runes, pos } = useMemo(() => {
+    const length = Math.floor(Math.random() * 7) + 6;
+    const r = Array.from(
+      { length },
+      () => symbols[Math.floor(Math.random() * symbols.length)]
+    );
+
+    const x = Aritmetic.RandomBetween(-10, 10);
+    const y = Aritmetic.RandomBetween(-10, 10);
+    const z = Aritmetic.RandomBetween(10, 15) * -1;
+
+    return { runes: r, pos: [x, y, z] };
+  }, [viewport, symbols]);
+
+  return (
+    <>
+      {runes.map((rune, i) => (
+        <RuneSymbol
+          key={i}
+          symbol={rune}
+          position={[pos[0], pos[1] - i * 0.25, pos[2]]}
+          delay={i * 0.3}
+        />
+      ))}
+    </>
+  );
+}
+
+// -------------------- Sistema de columnas --------------------
+export function RuneCascade({ count = 10 }) {
+  const { size } = useThree();
+  const viewport = { width: size.width, height: size.height };
+
+  return (
+    <>
+      {Array.from({ length: count }).map((_, i) => (
+        <RuneColumn key={i} viewport={viewport} />
+      ))}
+    </>
+  );
+}
+
+// -------------------- Shader global para LightBeam --------------------
+const vertexShader = `
+  varying vec3 vPosition;
+  void main() {
+    vPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+  uniform vec3 uColor;
+  uniform float uOpacity;
+  varying vec3 vPosition;
+
+  void main() {
+    float opacity = (vPosition.y + 7.5) / 15.0;
+    gl_FragColor = vec4(uColor * opacity, uOpacity * opacity);
+  }
+`;
+
+// -------------------- Rayo de luz --------------------
 function LightBeam({
   position,
   color = "#7dd3fc",
-  size = [15, 12], // [height, radialSegments]
+  size = [15, 12],
   rotation,
   radiusTop,
   radiusBottom,
 }) {
-  const meshRef = useRef();
-
-  const material = useMemo(() => {
-    const vertexShader = `
-      varying vec3 vPosition;
-      void main() {
-        vPosition = position;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `;
-
-    const fragmentShader = `
-      uniform vec3 uColor;
-      uniform float uOpacity;
-      varying vec3 vPosition;
-
-      void main() {
-        float opacity = (vPosition.y + ${size[0]}.0 / 2.0) / ${size[0]}.0;
-        gl_FragColor = vec4(uColor * opacity, uOpacity * opacity);
-      }
-    `;
-
-    return new THREE.ShaderMaterial({
-      uniforms: {
-        uColor: { value: new THREE.Color(color) },
-        uOpacity: { value: 1.0 },
-      },
-      vertexShader,
-      fragmentShader,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
-    });
-  }, [color, size]);
+  const material = useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        uniforms: {
+          uColor: { value: new THREE.Color(color) },
+          uOpacity: { value: 1.0 },
+        },
+        vertexShader,
+        fragmentShader,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+      }),
+    [color]
+  );
 
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      rotation={rotation}
-      material={material}
-    >
+    <animated.mesh position={position} rotation={rotation} material={material}>
       <cylinderGeometry args={[radiusTop, radiusBottom, size[0], size[1]]} />
-    </mesh>
+    </animated.mesh>
   );
 }
 
-// -------------------- Emisor de partículas (arreglado) --------------------
+// -------------------- Emisor de partículas --------------------
 function RandomParticleEmitter({
   position = [0, 0, 0],
-  spawnRate = 1, // por defecto: 1 partícula por frame (comportamiento similar al original)
-  speed = 0.05, // velocidad base en el momento del spawn
+  spawnRate = 1,
+  speed = 0.05,
   color = "#7dd3fc",
   maxParticles = 500,
   maxDistance = 5,
-  minSpeed = 0.01, // velocidad mínima final
-  timeToMin = 60, // segundos para acercarse ~99% a minSpeed
+  minSpeed = 0.01,
+  timeToMin = 60,
 }) {
   const pointsRef = useRef();
   const particlesRef = useRef([]);
@@ -101,32 +191,21 @@ function RandomParticleEmitter({
     [maxParticles]
   );
   const alphas = useMemo(() => new Float32Array(maxParticles), [maxParticles]);
-  const origin = useMemo(() => new THREE.Vector3(...position), [position]);
+  const originRef = useRef(
+    new THREE.Vector3(...(Array.isArray(position) ? position : [0, 0, 0]))
+  );
 
-  // tau para ~99% en timeToMin: 1 - exp(-timeToMin/tau) = 0.99  => tau = timeToMin / ln(100)
   const tau = useMemo(() => timeToMin / Math.log(100), [timeToMin]);
 
   useFrame((_, delta) => {
     const particles = particlesRef.current;
 
-    // ---------- SPAWN (manteniendo compatibilidad con comportamiento anterior) ----------
-    // - spawnRate >= 1: se considera "partículas por frame" (como antes).
-    // - 0 < spawnRate < 1: se considera "probabilidad por frame" (ej spawnRate=0.01 -> ~1% chance).
-    if (spawnRate >= 1) {
-      const whole = Math.floor(spawnRate);
-      const frac = spawnRate - whole;
-      for (let s = 0; s < whole; s++) {
-        if (particles.length >= maxParticles) break;
-        spawnOne();
-      }
-      if (Math.random() < frac && particles.length < maxParticles) spawnOne();
-    } else if (spawnRate > 0) {
-      if (Math.random() < spawnRate && particles.length < maxParticles)
-        spawnOne();
-    }
+    position.to((x, y, z) => {
+      originRef.current.set(x, y, z);
+    });
 
-    function spawnOne() {
-      // dirección uniforme en la esfera
+    // ---------- Spawn ----------
+    const spawnOne = () => {
       const phi = Math.random() * 2 * Math.PI;
       const costheta = Math.random() * 2 - 1;
       const theta = Math.acos(costheta);
@@ -136,34 +215,37 @@ function RandomParticleEmitter({
         Math.cos(theta)
       );
 
-      const v0 = speed * (0.5 + Math.random()); // v0 aleatoria basada en speed actual
+      const v0 = speed * (0.5 + Math.random());
       const vel = dir.clone().multiplyScalar(v0);
-      const pos = origin.clone();
 
+      const pos = originRef.current.clone();
       particles.push({ pos, vel, v0, age: 0 });
+    };
+
+    if (spawnRate >= 1) {
+      for (let s = 0; s < Math.floor(spawnRate); s++) {
+        if (particles.length < maxParticles) spawnOne();
+      }
+      if (Math.random() < spawnRate % 1 && particles.length < maxParticles)
+        spawnOne();
+    } else if (Math.random() < spawnRate && particles.length < maxParticles) {
+      spawnOne();
     }
 
-    // ---------- UPDATE (frenado por edad hacia minSpeed) ----------
+    // ---------- Update ----------
     let write = 0;
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
       p.age += delta;
 
-      // velocidad según edad: v = min + (v0 - min) * exp(-age/tau)
       const vNow = minSpeed + (p.v0 - minSpeed) * Math.exp(-p.age / tau);
-      // evita setLength con cero
       if (vNow > 0) p.vel.setLength(vNow);
 
-      // integrar
       p.pos.addScaledVector(p.vel, delta);
 
-      const distance = p.pos.distanceTo(origin);
-      if (distance > maxDistance) {
-        // fuera: no lo escribimos -> reciclado
-        continue;
-      }
+      const distance = p.pos.distanceTo(originRef.current);
+      if (distance > maxDistance) continue;
 
-      // escribir en buffers compactados
       positions[write * 3 + 0] = p.pos.x;
       positions[write * 3 + 1] = p.pos.y;
       positions[write * 3 + 2] = p.pos.z;
@@ -174,18 +256,16 @@ function RandomParticleEmitter({
     }
     particles.length = write;
 
-    // actualizar buffers de la geometría
-    if (pointsRef.current && pointsRef.current.geometry) {
+    if (pointsRef.current) {
       const geo = pointsRef.current.geometry;
       geo.setDrawRange(0, write);
-      if (geo.attributes.position) geo.attributes.position.array = positions;
-      if (geo.attributes.position) geo.attributes.position.needsUpdate = true;
-      if (geo.attributes.alpha) geo.attributes.alpha.needsUpdate = true;
+      geo.attributes.position.needsUpdate = true;
+      geo.attributes.alpha.needsUpdate = true;
     }
   });
 
   return (
-    <points ref={pointsRef}>
+    <animated.points ref={pointsRef} position={position}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -200,43 +280,42 @@ function RandomParticleEmitter({
           itemSize={1}
         />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.05}
-        vertexColors={false}
-        color={color}
-        transparent
-        opacity={1}
-      />
-    </points>
+      <pointsMaterial size={0.1} color={color} transparent opacity={1} />
+    </animated.points>
   );
 }
 
+// -------------------- Componente Principal --------------------
 const MagicBackground = ({ children }) => {
   const beamColor = "#7dd3fc";
-  const spherePos = [-10, 1.5, -23];
+  const spherePos = useMagicBgStore((state) => state.spherePos);
 
-  const [intensity, setIntensity] = useState(0); // brillo esfera
-  const [bloomIntensity, setBloomIntensity] = useState(0); // bloom global
+  const [intensity, setIntensity] = useState(0);
+  const [bloomIntensity, setBloomIntensity] = useState(0);
   const [fogColor, setFogColor] = useState(new THREE.Color("#000000"));
-
   const [lightBeamLeftRadiusTop, setLightBeamLeftRadiusTop] = useState(0);
   const [lightBeamRightRadiusTop, setLightBeamRightRadiusTop] = useState(0);
   const [speedParticles, setSpeedParticles] = useState(0);
+  const [startRunes, setStartRunes] = useState(false);
 
+  const { animatedSpherePos } = useSpring({
+    animatedSpherePos: spherePos,
+    config: { mass: 5, tension: 500, friction: 100, duration: 1200 },
+  });
+
+  // 🔹 Animación controlada con rAF en vez de intervalos múltiples
   useEffect(() => {
     let t = 0;
-    const interval = setInterval(() => {
+    let runeTimer;
+
+    const tick = () => {
       t += 0.02;
 
-      // Fase inicial: todo oscuro
       if (t < 1) {
         setIntensity(0);
         setBloomIntensity(0);
-      }
-
-      // Explosión: rápido a blanco
-      else if (t >= 1 && t < 1.3) {
-        const k = (t - 1) / 0.3; // 0→1
+      } else if (t < 1.3) {
+        const k = (t - 1) / 0.3;
         setIntensity(50 * k);
         setBloomIntensity(30 * k);
         setFogColor(
@@ -248,12 +327,9 @@ const MagicBackground = ({ children }) => {
         );
         setLightBeamRightRadiusTop(0.1);
         setLightBeamLeftRadiusTop(0.1);
-        setSpeedParticles(5); // durante el "boom" las nuevas partículas salen rápido
-      }
-
-      // Disipación: baja poco a poco
-      else if (t >= 1.3 && t < 3) {
-        const k = 1 - (t - 1.3) / 1.7; // 1→0
+        setSpeedParticles(5);
+      } else if (t < 3) {
+        const k = 1 - (t - 1.3) / 1.7;
         setIntensity(5 + 45 * k);
         setBloomIntensity(10 + 20 * k);
         setFogColor(
@@ -263,18 +339,25 @@ const MagicBackground = ({ children }) => {
             1 - k
           )
         );
-      }
-
-      // Estado final estable
-      else {
+      } else {
         setIntensity(5);
         setBloomIntensity(10);
         setFogColor(new THREE.Color("#000000"));
-        clearInterval(interval);
+        runeTimer = setInterval(() => {
+          setStartRunes(true);
+          setTimeout(() => setStartRunes(false), 10000);
+        }, 60 * 1000);
+        return;
       }
-    }, 30);
 
-    return () => clearInterval(interval);
+      requestAnimationFrame(tick);
+    };
+
+    const anim = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(anim);
+      if (runeTimer) clearInterval(runeTimer);
+    };
   }, []);
 
   return (
@@ -284,37 +367,34 @@ const MagicBackground = ({ children }) => {
     >
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>
         <color attach="background" args={["#000000"]} />
-        <fog attach="fog" args={[fogColor, 10, 35]} />
+        <fog attach="fog" args={[fogColor, 10, 55]} />
 
-        {/* Esfera central con intensidad animada */}
         <GlowingSphere
           radius={0.5}
           color={beamColor}
-          position={spherePos}
+          position={animatedSpherePos.to((x, y, z) => [x, y, z])}
           intensity={intensity}
         />
 
-        {/* Rayos */}
         <LightBeam
-          position={[spherePos[0] - 7.7, spherePos[1], spherePos[2]]}
-          rotation={[0, 0, Math.PI / -2]}
+          position={animatedSpherePos.to((x, y, z) => [x - 7, y - 4, z])}
+          rotation={[0, 0, Math.PI / -3]}
           radiusTop={lightBeamLeftRadiusTop}
           radiusBottom={0}
           color={beamColor}
         />
         <LightBeam
-          position={[spherePos[0] + 7.7, spherePos[1] + 0.02, spherePos[2]]}
-          rotation={[0, 0, Math.PI / 2]}
+          position={animatedSpherePos.to((x, y, z) => [x + 6.7, y + 4, z])}
+          rotation={[0, 0, Math.PI / 1.5]}
           radiusTop={lightBeamRightRadiusTop}
           radiusBottom={0}
           color={beamColor}
         />
 
-        {/* Partículas normales */}
         <RandomParticleEmitter
-          position={spherePos}
-          spawnRate={1} // 1 partícula por frame (ajusta si quieres más)
-          speed={speedParticles} // velocidad base en el spawn (cambia durante el timeline)
+          position={animatedSpherePos.to((x, y, z) => [x, y, z])}
+          spawnRate={1}
+          speed={speedParticles}
           minSpeed={1}
           timeToMin={120}
           maxDistance={120}
@@ -322,8 +402,9 @@ const MagicBackground = ({ children }) => {
           maxParticles={2000}
         />
 
-        <OrbitControls enableDamping />
+        {startRunes && <RuneCascade count={5} />}
 
+        <OrbitControls enableDamping />
         <EffectComposer>
           <Bloom
             mipmapBlur
@@ -334,7 +415,6 @@ const MagicBackground = ({ children }) => {
         </EffectComposer>
       </Canvas>
 
-      {/* Contenido en primer plano */}
       <div
         style={{
           position: "absolute",

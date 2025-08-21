@@ -4,6 +4,7 @@ import useAlert from "./AlertContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import storageEnum from "../../utils/enums/storageEnum";
+import { useMagicBgStore } from "../store/MagicBGStore";
 
 const AuthContext = createContext();
 
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const { setAlert } = useAlert();
   const [auth, setAuth] = useState({});
   const [loged, setLoged] = useState(false);
+  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
 
   const navigate = useNavigate();
 
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem(storageEnum.GWC_TOKEN, response.data.token);
       setAuth(response.data);
       setLoged(true);
+      setSpherePos([0, 0, -22]);
       return { status: "success", navigate: `/${response.data.username}/` };
     } catch (error) {
       setAlert({ type: "error", msg: error.message, destroy: true });
@@ -38,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       setAuth({});
       setLoged(false);
       localStorage.removeItem(storageEnum.GWC_TOKEN);
+      setSpherePos([-10, 1.9, -23]);
       navigate(`/`);
     } catch (error) {
       console.log(error);
@@ -52,6 +56,7 @@ export const AuthProvider = ({ children }) => {
       const response = await AuthBridge.autoLogin(token);
       setAuth(response.data);
       setLoged(true);
+      setSpherePos([0, 0, -22]);
       navigate(`/${response.data.username}/`);
     } catch (error) {
       setAlert({ type: "error", msg: error.message, destroy: true });
