@@ -3,7 +3,7 @@ import ItemBridge from "../bridges/ItemBridge";
 import useAlert from "./AlertContext";
 import { Item } from "@models/Item";
 import PropTypes from "prop-types";
-import useAuth from "./AuthContext";
+import { useAuthStore } from "../store/AuthStore";
 
 const ItemContext = createContext();
 
@@ -13,7 +13,7 @@ export default () => {
 
 export const ItemProvider = ({ children }) => {
   const { setAlert } = useAlert();
-  const { loged } = useAuth();
+  const loged = useAuthStore((state) => state.loged);
   const [items, setItems] = useState([]);
   const [itemsReady, setItemsReady] = useState(false);
   const [loading, setLoading] = useState(true);

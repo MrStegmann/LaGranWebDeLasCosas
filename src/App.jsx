@@ -13,6 +13,8 @@ import ProfileLayout from "./layouts/ProfileLayout";
 import Codex from "./page/Codex";
 import CharManager from "./managers/CharManager";
 import MagicBackground from "./components/MagicBackground";
+import AdminLayout from "./layouts/AdminLayout";
+import Users from "./page/Users";
 
 function App() {
   return (
@@ -45,6 +47,9 @@ function App() {
                       </Route>
 
                       <Route path="item-maker" element={<ItemsManager />} />
+                    </Route>
+                    <Route path="/admin/" element={<AdminLayout />}>
+                      <Route path="users/" element={<Users />} />
                     </Route>
                     {/* <Route path="/" element={<Mainmenu />} /> */}
                     {/* <Route path="/sheets" element={<SheetsMenu />} />

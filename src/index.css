@@ -61,8 +61,29 @@
     }
   }
 
+  @keyframes spinReverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
   .animate-pulseTextGlow {
     animation: pulseTextGlow 2.5s ease-in-out infinite;
+  }
+
+  .animate-spinReverse {
+    animation: spinReverse 10s linear infinite;
+  }
+
+  .animate-spinSlow {
+    animation: spin 10s linear infinite;
+  }
+
+  .animate-spinSlower {
+    animation: spin 20s linear infinite;
   }
 }
 

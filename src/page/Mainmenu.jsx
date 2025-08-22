@@ -3,20 +3,26 @@ import useAuth from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAlert from "../context/AlertContext";
-
+import { useMagicBgStore } from "../store/MagicBGStore";
 import MainMenuEnum from "../../utils/enums/MainMenuEnum";
-import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
+import CircularMenu from "../components/menus/CircularMenu";
+import RolesEnum from "../../utils/enums/RolesEnum";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
+  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
 
   const [toAppear, setToAppear] = useState(false);
 
   const [overSomething, setOverSomething] = useState("true");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSpherePos([0, 0, -22]);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -70,43 +76,58 @@ const Mainmenu = () => {
     }, 800);
   };
 
+  const handleLogout = () => {
+    setToAppear(false);
+    setTimeout(() => {
+      onLogout();
+    }, 800);
+  };
+
+  const items = [
+    {
+      fnc: () => navigateTo(`/${username}/codex`),
+      label: "Codex",
+      minRol: RolesEnum.GUEST,
+      id: MainMenuEnum.GREAT_BOOK,
+    },
+    {
+      fnc: () => navigateTo(`/${username}/grimoire`),
+      label: "Grimorio",
+      minRol: RolesEnum.GUEST,
+      id: MainMenuEnum.GRIMOIRE,
+    },
+    {
+      fnc: () => navigateTo(`/${username}/sheets`),
+      label: "Librería",
+      minRol: RolesEnum.GUEST,
+      id: MainMenuEnum.SHEETS,
+    },
+    {
+      fnc: () => navigateTo(`/${username}/item-maker`),
+      label: "La Forja",
+      minRol: RolesEnum.GUEST,
+      id: MainMenuEnum.ITEM_MAKER,
+    },
+    {
+      fnc: () => navigateTo(`/admin/users`),
+      label: "Miembros",
+      minRol: RolesEnum.OFFICER,
+      id: MainMenuEnum.USER_MEMBERS,
+    },
+    {
+      fnc: handleLogout,
+      label: "Cerrar Sesión",
+      id: MainMenuEnum.LOGOUT,
+    },
+  ];
+
   return (
     <PageGAC>
-      <div className="w-full flex flex-col relative ">
-        <div
-          onMouseOver={(e) => setOverSomething(e.target.id)}
-          className={`absolute -top-[13vh] left-[12vw] w-1/4 backdrop-blur-sm rounded-2xl shadow-lg shadow-mana/60 px-8 py-5 space-y-5 flex flex-col transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
-        >
-          {[
-            {
-              to: `/${username}/codex`,
-              label: "Codex",
-              id: MainMenuEnum.GREAT_BOOK,
-            },
-            {
-              to: `/${username}/grimoire`,
-              label: "Grimorio",
-              id: MainMenuEnum.GRIMOIRE,
-            },
-            {
-              to: `/${username}/sheets`,
-              label: "Librería",
-              id: MainMenuEnum.SHEETS,
-            },
-            {
-              to: `/${username}/item-maker`,
-              label: "La Forja",
-              id: MainMenuEnum.ITEM_MAKER,
-            },
-          ].map(({ to, label, id }) => (
-            <MinimalGlowingBtn id={id} onClick={() => navigateTo(to)} key={id}>
-              {label}
-            </MinimalGlowingBtn>
-          ))}
-          <MinimalGlowingBtn id={MainMenuEnum.LOGOUT} onClick={onLogout}>
-            Cerrar sesión
-          </MinimalGlowingBtn>
-        </div>
+      <div
+        onMouseOver={(e) => setOverSomething(e.target.id)}
+        className={`relative pb-10 mb-10 transition-all duration-1000 ${!toAppear ? "opacity-0 translate-x-96 scale-0" : "opacity-100 translate-x-0 scale-100"}`}
+      >
+        <CircularMenu items={items} />
       </div>
     </PageGAC>
   );

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import storageEnum from "../../utils/enums/storageEnum";
 import { useMagicBgStore } from "../store/MagicBGStore";
+import { useAuthStore } from "../store/AuthStore";
 
 const AuthContext = createContext();
 
@@ -14,8 +15,10 @@ export default () => {
 
 export const AuthProvider = ({ children }) => {
   const { setAlert } = useAlert();
-  const [auth, setAuth] = useState({});
-  const [loged, setLoged] = useState(false);
+  const auth = useAuthStore((state) => state.auth);
+  const loged = useAuthStore((state) => state.loged);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const setLoged = useAuthStore((state) => state.setLoged);
   const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
 
   const navigate = useNavigate();
@@ -26,7 +29,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem(storageEnum.GWC_TOKEN, response.data.token);
       setAuth(response.data);
       setLoged(true);
-      setSpherePos([0, 0, -22]);
       return { status: "success", navigate: `/${response.data.username}/` };
     } catch (error) {
       setAlert({ type: "error", msg: error.message, destroy: true });
@@ -56,7 +58,6 @@ export const AuthProvider = ({ children }) => {
       const response = await AuthBridge.autoLogin(token);
       setAuth(response.data);
       setLoged(true);
-      setSpherePos([0, 0, -22]);
       navigate(`/${response.data.username}/`);
     } catch (error) {
       setAlert({ type: "error", msg: error.message, destroy: true });
@@ -69,19 +70,10 @@ export const AuthProvider = ({ children }) => {
     onAutoLogin();
   }, [auth, loged]);
 
-  const contextValue = useMemo(
-    () => ({
-      auth,
-      loged,
-      onLogin,
-      onLogout,
-      onAutoLogin,
-    }),
-    [auth, loged]
-  );
-
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ onLogin, onLogout, onAutoLogin }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -2,7 +2,7 @@ import { createContext, useState, useEffect, useContext, useMemo } from "react";
 import SpellBridge from "../bridges/SpellBridge";
 import SkillBridge from "../bridges/SkillBridge";
 import useAlert from "./AlertContext";
-import useAuth from "./AuthContext";
+import { useAuthStore } from "../store/AuthStore";
 import { Spell } from "@models/Spell";
 import { Skill } from "@models/Skill";
 import PropTypes from "prop-types";
@@ -15,7 +15,7 @@ export default () => {
 
 const SSProvider = ({ children }) => {
   const { setAlert } = useAlert();
-  const { loged } = useAuth();
+  const loged = useAuthStore((state) => state.loged);
   const [spells, setSpells] = useState([]);
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);

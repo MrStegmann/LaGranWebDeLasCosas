@@ -8,7 +8,7 @@ import { Npc } from "@models/Npc";
 import { Gear } from "@models/extensions/Gear";
 import { Attribute } from "@models/extensions/Attribute";
 import { Talent } from "@models/extensions/Talent";
-import useAuth from "./AuthContext";
+import { useAuthStore } from "../store/AuthStore";
 import PropTypes from "prop-types";
 
 const SheetContext = createContext();
@@ -19,7 +19,7 @@ export default () => {
 
 export const SheetProvider = ({ children }) => {
   const { setAlert } = useAlert();
-  const { loged } = useAuth();
+  const loged = useAuthStore((state) => state.loged);
   const [npcs, setNpcs] = useState([]);
   const [npcsReady, setNpcsReady] = useState(false);
   const [chars, setChars] = useState([]);
