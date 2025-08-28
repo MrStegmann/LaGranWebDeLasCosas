@@ -4,23 +4,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import CodexEnum from "../../utils/enums/CodexEnum";
 import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
 import useAlert from "../context/AlertContext";
+import { usePageStore } from "../store/PageStore";
+import { BOTTOM_CENTER_STATE, useMagicBgStore } from "../store/MagicBGStore";
 
 const Codex = () => {
   const { setAlert } = useAlert();
   const { username } = useParams();
+  const setToAppear = usePageStore((state) => state.setToAppear);
+  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
   const [overSomething, setOverSomething] = useState("");
 
   const [toRead, setToRead] = useState("");
 
-  const [toAppear, setToAppear] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setToAppear(true);
-    }, 800);
-    return () => clearTimeout(timeout);
+    setSpherePos(BOTTOM_CENTER_STATE);
   }, []);
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const Codex = () => {
       <div className="w-full h-full flex flex-row">
         <div
           onMouseOver={(e) => setOverSomething(e.target.id)}
-          className={`w-1/4 space-y-5 flex flex-col justify-center transition-all duration-800 ${!toAppear ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"}`}
+          className={`w-1/4 space-y-5 flex flex-col justify-center`}
         >
           {[
             {

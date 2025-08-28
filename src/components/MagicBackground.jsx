@@ -289,6 +289,7 @@ function RandomParticleEmitter({
 const MagicBackground = ({ children }) => {
   const beamColor = "#7dd3fc";
   const spherePos = useMagicBgStore((state) => state.spherePos);
+  const sphereRot = useMagicBgStore((state) => state.sphereRot);
 
   const [intensity, setIntensity] = useState(0);
   const [bloomIntensity, setBloomIntensity] = useState(0);
@@ -368,7 +369,6 @@ const MagicBackground = ({ children }) => {
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>
         <color attach="background" args={["#000000"]} />
         <fog attach="fog" args={[fogColor, 10, 55]} />
-
         <GlowingSphere
           radius={0.5}
           color={beamColor}

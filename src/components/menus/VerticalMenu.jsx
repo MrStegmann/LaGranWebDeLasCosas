@@ -6,14 +6,10 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
   const [activeItem, setActiveItem] = useState(items[0]);
   const totalItems = items.length;
 
-  const handleScroll = (event) => {
-    event.preventDefault();
-    if (event.deltaY > 0) {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % totalItems);
-    } else if (event.deltaY < 0) {
-      setActiveIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
-    }
-  };
+  useEffect(() => {
+    setActiveIndex(0);
+    setActiveItem(items[0]);
+  }, [items]);
 
   useEffect(() => setActiveItem(items[activeIndex]), [activeIndex]);
   useEffect(() => getActiveItem(activeItem), [activeItem]);
@@ -31,6 +27,14 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
       }
     };
   }, [totalItems]);
+  const handleScroll = (event) => {
+    event.preventDefault();
+    if (event.deltaY > 0) {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % totalItems);
+    } else if (event.deltaY < 0) {
+      setActiveIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
+    }
+  };
 
   return (
     <div

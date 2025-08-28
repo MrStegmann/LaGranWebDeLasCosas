@@ -1,4 +1,5 @@
 import React from "react";
+import ButtonGAC from "./ButtonGAC";
 
 const MinimalForm = ({ buttonText, children, ...props }) => {
   return (
@@ -8,12 +9,12 @@ const MinimalForm = ({ buttonText, children, ...props }) => {
     >
       {children}
 
-      <button
+      <ButtonGAC
         type="submit"
         className="px-6 py-2 mt-5 bg-blue-dragon  text-mana font-semibold rounded-lg shadow-md hover:scale-105 border border-mana hover:ring-2 hover:ring-mana transition-transform duration-300"
       >
         {buttonText}
-      </button>
+      </ButtonGAC>
     </form>
   );
 };

@@ -4,17 +4,14 @@ import { SheetProvider } from "./context/SheetContext";
 import { AlertProvider } from "./context/AlertContext";
 import { SSProvider } from "./context/SaSContext";
 import { ItemProvider } from "./context/ItemsContext";
-import ItemsManager from "./page/ItemsManager";
-import SaSMenu from "./page/SaSMenu";
-import SheetsManager from "./page/SheetsManager";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./page/Login";
 import ProfileLayout from "./layouts/ProfileLayout";
-import Codex from "./page/Codex";
-import CharManager from "./managers/CharManager";
 import MagicBackground from "./components/MagicBackground";
 import AdminLayout from "./layouts/AdminLayout";
 import Users from "./page/Users";
+
+import Codex from "./page/Codex";
 
 function App() {
   return (
@@ -32,7 +29,7 @@ function App() {
                       <Route index element={<Mainmenu />} />
 
                       <Route path="codex/" element={<Codex />}></Route>
-
+                      {/*
                       <Route path="grimoire/" element={<SaSMenu />}></Route>
 
                       <Route path="sheets/" element={<SheetsManager />}>
@@ -46,7 +43,7 @@ function App() {
                         />
                       </Route>
 
-                      <Route path="item-maker" element={<ItemsManager />} />
+                      <Route path="item-maker" element={<ItemsManager />} /> */}
                     </Route>
                     <Route path="/admin/" element={<AdminLayout />}>
                       <Route path="users/" element={<Users />} />

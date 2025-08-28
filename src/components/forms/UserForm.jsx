@@ -3,12 +3,16 @@ import InputGAC from "../../framework/InputGAC";
 import SelectGAC from "../../framework/SelectGAC";
 import RolesEnum from "../../../utils/enums/RolesEnum";
 import useAlert from "../../context/AlertContext";
+import ButtonGAC from "../../framework/ButtonGAC";
+import DeleteBtnGAC from "../../framework/DeleteBtnGAC";
+import UsersEnum from "../../../utils/enums/UsersEnum";
 
-const UserForm = ({ data, onSubmit }) => {
+const UserForm = ({ data, onSubmit, onDelete }) => {
   if (!data) return;
   const { setAlert } = useAlert();
+  const [deleteUser, setDeleteUser] = useState(false);
+  const [delTimer, setDelTimer] = useState(15);
 
-  const [edit, setEdit] = useState(false);
   const [_id, setId] = useState(data._id);
   const [username, setUsername] = useState(data.username);
   const [rol, setRol] = useState(data.rol);
@@ -23,9 +27,38 @@ const UserForm = ({ data, onSubmit }) => {
     setRol(data.rol);
   }, [data]);
 
-  const handleSwitchEdit = (e) => {
+  useEffect(() => {
+    if (deleteUser) {
+      if (delTimer > 0) {
+        setTimeout(() => {
+          setDelTimer((before) => (before - 1 > 0 ? before - 1 : 0));
+        }, 1000);
+      } else {
+        setDeleteUser(false);
+        setDelTimer(15);
+        setAlert({
+          msg: "Supongo que has cambiado de opinión. ¡Mejor! Los datos hay que preservarlos.",
+          type: "info",
+          destroy: true,
+        });
+      }
+    } else {
+      setDelTimer(15);
+    }
+  }, [deleteUser, delTimer]);
+
+  const handleDelete = (e) => {
     e.preventDefault();
-    setEdit(!edit);
+    if (!deleteUser) {
+      setAlert({
+        msg: "¿Estás seguro de que quieres eliminar a este usuario? ¿Para siempre? Si es así... vuelve a pulsar sobre Eliminar",
+        type: "warning",
+      });
+      setDeleteUser(true);
+    } else {
+      onDelete(_id);
+      setDeleteUser(false);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -76,8 +109,6 @@ const UserForm = ({ data, onSubmit }) => {
       onSubmit={handleSubmit}
       className="w-1/4 h-96 space-y-5 border bg-blue-dragon/50 border-mana rounded-lg flex flex-col items-center p-5"
     >
-      <button onClick={handleSwitchEdit}>Editar</button>
-
       <InputGAC
         id="username"
         name="username"
@@ -127,7 +158,12 @@ const UserForm = ({ data, onSubmit }) => {
         }
       />
 
-      <button type="submit">Guardar</button>
+      <ButtonGAC type="submit">Guardar</ButtonGAC>
+      {data._id !== UsersEnum.NEW_USER_ID && (
+        <DeleteBtnGAC onClick={handleDelete}>
+          Eliminar {deleteUser ? delTimer : ""}
+        </DeleteBtnGAC>
+      )}
     </form>
   );
 };
