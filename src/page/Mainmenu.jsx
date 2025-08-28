@@ -84,30 +84,30 @@ const Mainmenu = () => {
   };
 
   const items = [
-    {
-      fnc: () => navigateTo(`/${username}/codex`),
-      label: "Codex",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.GREAT_BOOK,
-    },
-    {
-      fnc: () => navigateTo(`/${username}/grimoire`),
-      label: "Grimorio",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.GRIMOIRE,
-    },
-    {
-      fnc: () => navigateTo(`/${username}/sheets`),
-      label: "Librería",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.SHEETS,
-    },
-    {
-      fnc: () => navigateTo(`/${username}/item-maker`),
-      label: "La Forja",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.ITEM_MAKER,
-    },
+    // {
+    //   fnc: () => navigateTo(`/${username}/codex`),
+    //   label: "Codex",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.GREAT_BOOK,
+    // },
+    // {
+    //   fnc: () => navigateTo(`/${username}/grimoire`),
+    //   label: "Grimorio",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.GRIMOIRE,
+    // },
+    // {
+    //   fnc: () => navigateTo(`/${username}/sheets`),
+    //   label: "Librería",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.SHEETS,
+    // },
+    // {
+    //   fnc: () => navigateTo(`/${username}/item-maker`),
+    //   label: "La Forja",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.ITEM_MAKER,
+    // },
     {
       fnc: () => navigateTo(`/admin/users`),
       label: "Miembros",

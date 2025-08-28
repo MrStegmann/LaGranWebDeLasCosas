@@ -34,10 +34,10 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
 
   return (
     <div
-      className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+      className=" h-full w-full max-h-full overflow-hidden"
       ref={carouselRef}
     >
-      <div className="relative h-2/3 w-full flex flex-col items-center justify-center">
+      <div className="h-3/4 w-full flex flex-col items-center justify-center">
         {items.map((item, index) => {
           const distance = Math.abs(index - activeIndex);
           const scale = 1 - Math.min(distance * 0.2, 0.6);
@@ -48,14 +48,14 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
           return (
             <div
               key={index}
-              className={`absolute w-2/3 text-xl transition-all text-mana font-bold duration-500 ease-in-out ${activeIndex === index ? "animate-pulseTextGlow" : ""}`}
+              className={`text-xl transition-all text-mana font-bold duration-500 ease-in-out ${activeIndex === index ? "animate-pulseTextGlow" : ""}`}
               style={{
                 transform: `translateY(${translateY}rem) scale(${scale})`,
                 opacity: opacity,
                 zIndex: totalItems - distance,
               }}
             >
-              {item.label}
+              {index === activeIndex ? `> ${item.label} <` : item.label}
             </div>
           );
         })}
