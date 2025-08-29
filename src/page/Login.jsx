@@ -78,7 +78,7 @@ const Login = () => {
               customClass={
                 "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
               }
-              placeHolder={"Usuario"}
+              placeholder={"Usuario"}
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -91,7 +91,7 @@ const Login = () => {
                 "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
               }
               type="password"
-              placeHolder="Contraseña"
+              placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

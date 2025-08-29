@@ -15,6 +15,8 @@ const Users = () => {
   const { setAlert } = useAlert();
   const navigate = useNavigate();
   const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
+  const setSphereRot = useMagicBgStore((state) => state.setSphereRot);
+  const setSphereToLogin = useMagicBgStore((state) => state.setSphereToLogin);
   const setToAppear = usePageStore((state) => state.setToAppear);
   const { username } = useParams();
 
@@ -22,7 +24,8 @@ const Users = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    setSpherePos([12, 3, -27]);
+    setSpherePos([12, 3, -25]);
+    setSphereRot([0.1, 0, 0.25]);
   }, []);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const Users = () => {
         type: "error",
         destroy: true,
       });
-      setSpherePos([-10, 1.9, -23]);
+      setSphereToLogin();
       navigate("/");
       return;
     }

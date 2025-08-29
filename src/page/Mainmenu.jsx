@@ -3,7 +3,7 @@ import useAuth from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAlert from "../context/AlertContext";
-import { CENTER_CENTER_STATE, useMagicBgStore } from "../store/MagicBGStore";
+import { useMagicBgStore } from "../store/MagicBGStore";
 import MainMenuEnum from "../../utils/enums/MainMenuEnum";
 import CircularMenu from "../components/menus/CircularMenu";
 import RolesEnum from "../../utils/enums/RolesEnum";
@@ -13,7 +13,9 @@ const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
-  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
+  const setSphereToMainMenu = useMagicBgStore(
+    (state) => state.setSphereToMainMenu
+  );
 
   const setToAppear = usePageStore((state) => state.setToAppear);
 
@@ -22,7 +24,7 @@ const Mainmenu = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSpherePos(CENTER_CENTER_STATE);
+    setSphereToMainMenu();
   }, []);
 
   useEffect(() => {

@@ -5,13 +5,13 @@ import CodexEnum from "../../utils/enums/CodexEnum";
 import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
 import useAlert from "../context/AlertContext";
 import { usePageStore } from "../store/PageStore";
-import { BOTTOM_CENTER_STATE, useMagicBgStore } from "../store/MagicBGStore";
+import { useMagicBgStore } from "../store/MagicBGStore";
 
 const Codex = () => {
   const { setAlert } = useAlert();
   const { username } = useParams();
   const setToAppear = usePageStore((state) => state.setToAppear);
-  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
+  const setSphereToCodex = useMagicBgStore((state) => state.setSphereToCodex);
   const [overSomething, setOverSomething] = useState("");
 
   const [toRead, setToRead] = useState("");
@@ -19,7 +19,7 @@ const Codex = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSpherePos(BOTTOM_CENTER_STATE);
+    setSphereToCodex();
   }, []);
 
   useEffect(() => {
