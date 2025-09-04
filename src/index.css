@@ -92,14 +92,23 @@ body {
 }
 
 @layer components {
+  .prose {
+    background-color: white;
+    color: black;
+  }
   .prose :is(h1, h2, h3, h4) {
     color: inherit;
+    font: inherit;
+    size: inherit;
   }
   .prose p {
     color: inherit;
+    font: inherit;
   }
   .prose strong {
     color: inherit;
+    font: inherit;
+    size: inherit;
   }
 }
 

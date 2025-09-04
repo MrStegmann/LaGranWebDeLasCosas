@@ -3,10 +3,7 @@ import ButtonGAC from "./ButtonGAC";
 
 const MinimalForm = ({ buttonText, children, ...props }) => {
   return (
-    <form
-      {...props}
-      className="p-8 rounded-2xl text-mana w-full mx-auto space-y-6"
-    >
+    <form {...props} className="rounded-2xl text-mana w-full mx-auto space-y-2">
       {children}
 
       <ButtonGAC
