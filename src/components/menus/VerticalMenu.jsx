@@ -46,18 +46,18 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
           const distance = Math.abs(index - activeIndex);
           const scale = 1 - Math.min(distance * 0.2, 0.6);
           const opacity = 1 - Math.min(distance * 0.3, 0.9);
-          // Usamos el prop 'spacing' en el cálculo
           const translateY = (index - activeIndex) * spacing;
 
           return (
             <div
               key={index}
-              className={`text-xl transition-all text-mana font-bold duration-500 ease-in-out ${activeIndex === index ? "animate-pulseTextGlow" : ""}`}
+              className={`text-xl hover:cursor-pointer transition-all text-mana font-bold duration-500 ease-in-out ${activeIndex === index ? "animate-pulseTextGlow" : ""}`}
               style={{
                 transform: `translateY(${translateY}rem) scale(${scale})`,
                 opacity: opacity,
                 zIndex: totalItems - distance,
               }}
+              onClick={() => setActiveIndex(index)}
             >
               {index === activeIndex ? `> ${item.label} <` : item.label}
             </div>

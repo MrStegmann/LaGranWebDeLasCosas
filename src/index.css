@@ -85,6 +85,57 @@
   .animate-spinSlower {
     animation: spin 20s linear infinite;
   }
+
+  /* Animación de aparición desde el centro */
+  .rune-frame-container {
+    transform: scale(0.6);
+    opacity: 0;
+    animation: expandFrame 0.8s ease-out forwards;
+  }
+
+  @keyframes expandFrame {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Efecto de dibujado del borde */
+  .rune-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawPath 1s ease forwards;
+  }
+
+  @keyframes drawPath {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Runas con pulso brillante */
+  .runes {
+    fill: #90cdf4;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow:
+      0 0 8px #63b3ed,
+      0 0 12px #4299e1;
+    animation: runeGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes runeGlow {
+    from {
+      fill-opacity: 0.6;
+      text-shadow: 0 0 5px #63b3ed;
+    }
+    to {
+      fill-opacity: 1;
+      text-shadow:
+        0 0 15px #90cdf4,
+        0 0 25px #4299e1;
+    }
+  }
 }
 
 body {

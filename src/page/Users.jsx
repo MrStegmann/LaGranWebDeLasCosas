@@ -26,6 +26,9 @@ const Users = () => {
   useEffect(() => {
     setSpherePos([12, 3, -25]);
     setSphereRot([0.1, 0, 0.25]);
+    setAlert({
+      msg: "",
+    });
   }, []);
 
   useEffect(() => {

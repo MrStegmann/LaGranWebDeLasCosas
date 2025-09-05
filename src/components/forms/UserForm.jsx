@@ -6,6 +6,7 @@ import useAlert from "../../context/AlertContext";
 import ButtonGAC from "../../framework/ButtonGAC";
 import DeleteBtnGAC from "../../framework/DeleteBtnGAC";
 import UsersEnum from "../../../utils/enums/UsersEnum";
+import RuneFrame from "../../framework/RuneFrame";
 
 const UserForm = ({ data, onSubmit, onDelete }) => {
   if (!data) return;
@@ -105,65 +106,68 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-1/4 h-96 space-y-5 border bg-blue-dragon/50 border-mana rounded-lg flex flex-col items-center p-5"
-    >
-      <InputGAC
-        id="username"
-        name="username"
-        value={username}
-        placeholder="Nombre de usuario"
-        onChange={(e) => setUsername(e.target.value)}
-      />
+    <form onSubmit={handleSubmit} className="w-1/3 h-96">
+      <RuneFrame sides="x">
+        <div className="space-y-5 px-10 flex flex-col">
+          <InputGAC
+            id="username"
+            name="username"
+            value={username}
+            placeholder="Nombre de usuario"
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-      <SelectGAC
-        id="rol"
-        name="rol"
-        value={rol}
-        onChange={(e) => setRol(e.target.value)}
-      >
-        <option value={RolesEnum.GUEST.toLowerCase()}>
-          {RolesEnum.GUEST.toLowerCase()}
-        </option>
-        <option value={RolesEnum.ROLER.toLowerCase()}>
-          {RolesEnum.ROLER.toLowerCase()}
-        </option>
-        <option value={RolesEnum.OFFICER.toLowerCase()}>
-          {RolesEnum.OFFICER.toLowerCase()}
-        </option>
-        <option value={RolesEnum.ADMIN.toLowerCase()}>
-          {RolesEnum.ADMIN.toLowerCase()}
-        </option>
-      </SelectGAC>
+          <SelectGAC
+            id="rol"
+            name="rol"
+            value={rol}
+            onChange={(e) => setRol(e.target.value)}
+          >
+            <option value={RolesEnum.GUEST.toLowerCase()}>
+              {RolesEnum.GUEST.toLowerCase()}
+            </option>
+            <option value={RolesEnum.ROLER.toLowerCase()}>
+              {RolesEnum.ROLER.toLowerCase()}
+            </option>
+            <option value={RolesEnum.OFFICER.toLowerCase()}>
+              {RolesEnum.OFFICER.toLowerCase()}
+            </option>
+            <option value={RolesEnum.ADMIN.toLowerCase()}>
+              {RolesEnum.ADMIN.toLowerCase()}
+            </option>
+          </SelectGAC>
 
-      <InputGAC
-        id="newPassword"
-        name="newPassword"
-        value={newPass.newPassword}
-        type="password"
-        placeholder="Nueva contraseña"
-        onChange={(e) =>
-          setNewPass({ ...newPass, [e.target.name]: e.target.value })
-        }
-      />
-      <InputGAC
-        id="repeatPassword"
-        name="repeatPassword"
-        value={newPass.repeatPassword}
-        type="password"
-        placeholder="Repita la contraseña"
-        onChange={(e) =>
-          setNewPass({ ...newPass, [e.target.name]: e.target.value })
-        }
-      />
+          <InputGAC
+            id="newPassword"
+            name="newPassword"
+            value={newPass.newPassword}
+            type="password"
+            placeholder="Nueva contraseña"
+            onChange={(e) =>
+              setNewPass({ ...newPass, [e.target.name]: e.target.value })
+            }
+          />
+          <InputGAC
+            id="repeatPassword"
+            name="repeatPassword"
+            value={newPass.repeatPassword}
+            type="password"
+            placeholder="Repita la contraseña"
+            onChange={(e) =>
+              setNewPass({ ...newPass, [e.target.name]: e.target.value })
+            }
+          />
 
-      <ButtonGAC type="submit">Guardar</ButtonGAC>
-      {data._id !== UsersEnum.NEW_USER_ID && (
-        <DeleteBtnGAC onClick={handleDelete}>
-          Eliminar {deleteUser ? delTimer : ""}
-        </DeleteBtnGAC>
-      )}
+          <div className="flex flex-row w-full justify-center items-center">
+            <ButtonGAC type="submit">Guardar</ButtonGAC>
+            {data._id !== UsersEnum.NEW_USER_ID && (
+              <DeleteBtnGAC onClick={handleDelete}>
+                Eliminar {deleteUser ? delTimer : ""}
+              </DeleteBtnGAC>
+            )}
+          </div>
+        </div>
+      </RuneFrame>
     </form>
   );
 };
