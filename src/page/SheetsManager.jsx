@@ -12,7 +12,7 @@ const SheetsManager = ({ children }) => {
           <SheetsMenu username={username} />
         </div>
 
-        <div className="min-h-screen w-3/5">
+        <div className="min-h-dvh w-3/5">
           <Outlet />
         </div>
       </div>

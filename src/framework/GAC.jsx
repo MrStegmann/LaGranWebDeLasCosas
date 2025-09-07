@@ -2,7 +2,7 @@ import React from "react";
 
 const GAC = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col p-6 antialiased">{children}</div>
+    <div className="min-h-dvh flex flex-col p-6 antialiased">{children}</div>
   );
 };
 

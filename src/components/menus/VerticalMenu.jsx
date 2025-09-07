@@ -34,7 +34,7 @@ const VerticalMenu = ({ items, spacing = 12, getActiveItem }) => {
 
   return (
     <div
-      className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+      className="relative h-dvh w-full flex flex-col items-center justify-center overflow-hidden"
       ref={carouselRef}
     >
       <div className="relative h-2/3 w-full flex flex-col items-center justify-center">

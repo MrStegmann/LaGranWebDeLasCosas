@@ -66,7 +66,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center text-center">
+    <div className="w-full min-h-dvh flex flex-col items-center justify-center text-center">
       <div
         className={` w-2/9 transition-all duration-1000 ${isDisappearing ? "opacity-0 -translate-x-96" : "opacity-100 translate-x-0"} `}
       >

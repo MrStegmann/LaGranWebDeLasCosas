@@ -12,7 +12,7 @@ const ProfileLayout = () => {
     }
   }, [loged]);
   return (
-    <div className="max-h-screen min-h-screen h-full cursor-default select-none flex flex-col justify-center items-center antialiased w-full max-w-screen overflow-hidden">
+    <div className="max-h-dvh h-dvh min-h-dvh cursor-default select-none flex flex-col justify-center items-center antialiased w-full max-w-screen overflow-hidden">
       <Outlet />
     </div>
   );
