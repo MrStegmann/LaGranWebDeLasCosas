@@ -121,58 +121,6 @@ export function RuneCascade({ count = 10 }) {
   );
 }
 
-// -------------------- Shader global para LightBeam --------------------
-const vertexShader = `
-  varying vec3 vPosition;
-  void main() {
-    vPosition = position;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  uniform vec3 uColor;
-  uniform float uOpacity;
-  varying vec3 vPosition;
-
-  void main() {
-    float opacity = (vPosition.y + 7.5) / 15.0;
-    gl_FragColor = vec4(uColor * opacity, uOpacity * opacity);
-  }
-`;
-
-// -------------------- Rayo de luz --------------------
-function LightBeam({
-  position,
-  color = "#7dd3fc",
-  size = [15, 12],
-  rotation,
-  radiusTop,
-  radiusBottom,
-}) {
-  const material = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        uniforms: {
-          uColor: { value: new THREE.Color(color) },
-          uOpacity: { value: 1.0 },
-        },
-        vertexShader,
-        fragmentShader,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide,
-      }),
-    [color]
-  );
-
-  return (
-    <animated.mesh position={position} rotation={rotation} material={material}>
-      <cylinderGeometry args={[radiusTop, radiusBottom, size[0], size[1]]} />
-    </animated.mesh>
-  );
-}
-
 // -------------------- Emisor de partículas --------------------
 function RandomParticleEmitter({
   position = [0, 0, 0],
@@ -285,25 +233,93 @@ function RandomParticleEmitter({
   );
 }
 
+// -------------------- Shader para Disco --------------------
+const ringVertexShader = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const ringFragmentShader = `
+  uniform vec3 uColor;
+  uniform float uOpacity;
+  varying vec2 vUv;
+
+  void main() {
+    float dist = distance(vUv, vec2(0.5));
+    float alpha = smoothstep(0.5, 0.2, dist); // borde difuminado
+    gl_FragColor = vec4(uColor, uOpacity * alpha);
+  }
+`;
+
+// -------------------- Disco de luz (anillo) --------------------
+function LightDisc({
+  position = [0, 0, 0],
+  rotation = [-Math.PI / 2, 0, 0],
+  color = "#7dd3fc",
+  innerRadius = 1,
+  outerRadius = 2,
+}) {
+  const material = useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        uniforms: {
+          uColor: { value: new THREE.Color(color) },
+          uOpacity: { value: 1.0 },
+        },
+        vertexShader: ringVertexShader,
+        fragmentShader: ringFragmentShader,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+      }),
+    [color]
+  );
+
+  return (
+    <animated.mesh position={position} rotation={rotation} material={material}>
+      <ringGeometry args={[innerRadius, outerRadius, 64]} />
+    </animated.mesh>
+  );
+}
+
+function MagicCore({ spherePos, rotation, beamColor, intensity, discScale }) {
+  const coreRef = useRef();
+
+  return (
+    <animated.group ref={coreRef} position={spherePos} rotation={rotation}>
+      <GlowingSphere radius={0.5} color={beamColor} intensity={intensity} />
+
+      <LightDisc
+        innerRadius={1 * discScale}
+        outerRadius={5 * discScale}
+        color={beamColor}
+      />
+    </animated.group>
+  );
+}
+
 // -------------------- Componente Principal --------------------
 const MagicBackground = ({ children }) => {
   const beamColor = "#7dd3fc";
   const spherePos = useMagicBgStore((state) => state.spherePos);
+  const sphereRot = useMagicBgStore((state) => state.sphereRot);
 
   const [intensity, setIntensity] = useState(0);
   const [bloomIntensity, setBloomIntensity] = useState(0);
   const [fogColor, setFogColor] = useState(new THREE.Color("#000000"));
-  const [lightBeamLeftRadiusTop, setLightBeamLeftRadiusTop] = useState(0);
-  const [lightBeamRightRadiusTop, setLightBeamRightRadiusTop] = useState(0);
+  const [discScale, setDiscScale] = useState(0);
   const [speedParticles, setSpeedParticles] = useState(0);
   const [startRunes, setStartRunes] = useState(false);
 
-  const { animatedSpherePos } = useSpring({
+  const { animatedSpherePos, animatedSphereRot } = useSpring({
     animatedSpherePos: spherePos,
+    animatedSphereRot: sphereRot,
     config: { mass: 5, tension: 500, friction: 100, duration: 1200 },
   });
 
-  // 🔹 Animación controlada con rAF en vez de intervalos múltiples
   useEffect(() => {
     let t = 0;
     let runeTimer;
@@ -314,6 +330,7 @@ const MagicBackground = ({ children }) => {
       if (t < 1) {
         setIntensity(0);
         setBloomIntensity(0);
+        setDiscScale(0);
       } else if (t < 1.3) {
         const k = (t - 1) / 0.3;
         setIntensity(50 * k);
@@ -325,8 +342,7 @@ const MagicBackground = ({ children }) => {
             k
           )
         );
-        setLightBeamRightRadiusTop(0.1);
-        setLightBeamLeftRadiusTop(0.1);
+        setDiscScale(k); // 👈 discos aparecen con la explosión
         setSpeedParticles(5);
       } else if (t < 3) {
         const k = 1 - (t - 1.3) / 1.7;
@@ -343,6 +359,7 @@ const MagicBackground = ({ children }) => {
         setIntensity(5);
         setBloomIntensity(10);
         setFogColor(new THREE.Color("#000000"));
+        setDiscScale(1); // 👈 discos tamaño final
         runeTimer = setInterval(() => {
           setStartRunes(true);
           setTimeout(() => setStartRunes(false), 10000);
@@ -368,27 +385,12 @@ const MagicBackground = ({ children }) => {
       <Canvas camera={{ position: [0, 0, 0], fov: 50, near: 0.01, far: 500 }}>
         <color attach="background" args={["#000000"]} />
         <fog attach="fog" args={[fogColor, 10, 55]} />
-
-        <GlowingSphere
-          radius={0.5}
-          color={beamColor}
-          position={animatedSpherePos.to((x, y, z) => [x, y, z])}
+        <MagicCore
+          spherePos={animatedSpherePos.to((x, y, z) => [x, y, z])}
+          rotation={animatedSphereRot}
+          beamColor={beamColor}
           intensity={intensity}
-        />
-
-        <LightBeam
-          position={animatedSpherePos.to((x, y, z) => [x - 7, y - 4, z])}
-          rotation={[0, 0, Math.PI / -3]}
-          radiusTop={lightBeamLeftRadiusTop}
-          radiusBottom={0}
-          color={beamColor}
-        />
-        <LightBeam
-          position={animatedSpherePos.to((x, y, z) => [x + 6.7, y + 4, z])}
-          rotation={[0, 0, Math.PI / 1.5]}
-          radiusTop={lightBeamRightRadiusTop}
-          radiusBottom={0}
-          color={beamColor}
+          discScale={discScale}
         />
 
         <RandomParticleEmitter

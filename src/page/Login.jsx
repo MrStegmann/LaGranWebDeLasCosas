@@ -73,29 +73,25 @@ const Login = () => {
         <MinimalForm onSubmit={handleSubmit} buttonText={"Acceder"}>
           <h2 className="text-3xl mb-5 font-bold">Iniciar Sesión</h2>
           <div className="col-span-3">
-            <label htmlFor="username" className="block mb-1 font-semibold">
-              Usuario
-            </label>
             <InputGAC
               id="username"
               customClass={
                 "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
               }
+              placeholder={"Usuario"}
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="col-span-3">
-            <label htmlFor="password" className="block mb-1 font-semibold">
-              Contraseña
-            </label>
             <InputGAC
               id="password"
               customClass={
                 "w-full bg-blue-dragon/80 shadow-inner-glow shadow-black"
               }
               type="password"
+              placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

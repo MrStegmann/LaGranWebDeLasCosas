@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const loged = useAuthStore((state) => state.loged);
   const setAuth = useAuthStore((state) => state.setAuth);
   const setLoged = useAuthStore((state) => state.setLoged);
-  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
+  const setSphereToLogin = useMagicBgStore((state) => state.setSphereToLogin);
 
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       setAuth({});
       setLoged(false);
       localStorage.removeItem(storageEnum.GWC_TOKEN);
-      setSpherePos([-10, 1.9, -23]);
+      setSphereToLogin();
       navigate(`/`);
     } catch (error) {
       console.log(error);

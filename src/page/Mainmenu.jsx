@@ -7,28 +7,24 @@ import { useMagicBgStore } from "../store/MagicBGStore";
 import MainMenuEnum from "../../utils/enums/MainMenuEnum";
 import CircularMenu from "../components/menus/CircularMenu";
 import RolesEnum from "../../utils/enums/RolesEnum";
+import { usePageStore } from "../store/PageStore";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
-  const setSpherePos = useMagicBgStore((state) => state.setSpherePos);
+  const setSphereToMainMenu = useMagicBgStore(
+    (state) => state.setSphereToMainMenu
+  );
 
-  const [toAppear, setToAppear] = useState(false);
+  const setToAppear = usePageStore((state) => state.setToAppear);
 
   const [overSomething, setOverSomething] = useState("true");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSpherePos([0, 0, -22]);
-  }, []);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setToAppear(true);
-    }, 800);
-    return () => clearTimeout(timeout);
+    setSphereToMainMenu();
   }, []);
 
   useEffect(() => {
@@ -54,6 +50,12 @@ const Mainmenu = () => {
       if (overSomething === MainMenuEnum.ITEM_MAKER) {
         setAlert({
           msg: "¿Buscando un nuevo artefacto? ¡En la forja encontrarás todos los objetos! Desde los más comunes hasta los más inusuales y legendarios. ¡También puedes crear nuevos objetos si eres un gran forjador!",
+          type: "info",
+        });
+      }
+      if (overSomething === MainMenuEnum.USER_MEMBERS) {
+        setAlert({
+          msg: "Uy, este lugar está reservado para gente... importante, y tú lo eres. Aquí puedes gestionar quiénes pueden hacer uso de toda la información que hay guardada en el Nexo.",
           type: "info",
         });
       }
@@ -90,24 +92,24 @@ const Mainmenu = () => {
       minRol: RolesEnum.GUEST,
       id: MainMenuEnum.GREAT_BOOK,
     },
-    {
-      fnc: () => navigateTo(`/${username}/grimoire`),
-      label: "Grimorio",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.GRIMOIRE,
-    },
-    {
-      fnc: () => navigateTo(`/${username}/sheets`),
-      label: "Librería",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.SHEETS,
-    },
-    {
-      fnc: () => navigateTo(`/${username}/item-maker`),
-      label: "La Forja",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.ITEM_MAKER,
-    },
+    // {
+    //   fnc: () => navigateTo(`/${username}/grimoire`),
+    //   label: "Grimorio",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.GRIMOIRE,
+    // },
+    // {
+    //   fnc: () => navigateTo(`/${username}/sheets`),
+    //   label: "Librería",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.SHEETS,
+    // },
+    // {
+    //   fnc: () => navigateTo(`/${username}/item-maker`),
+    //   label: "La Forja",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.ITEM_MAKER,
+    // },
     {
       fnc: () => navigateTo(`/admin/users`),
       label: "Miembros",
@@ -125,7 +127,7 @@ const Mainmenu = () => {
     <PageGAC>
       <div
         onMouseOver={(e) => setOverSomething(e.target.id)}
-        className={`relative pb-10 mb-10 transition-all duration-1000 ${!toAppear ? "opacity-0 translate-x-96 scale-0" : "opacity-100 translate-x-0 scale-100"}`}
+        className={`relative pb-10 mb-10`}
       >
         <CircularMenu items={items} />
       </div>
