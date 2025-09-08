@@ -8,11 +8,13 @@ import MainMenuEnum from "../../utils/enums/MainMenuEnum";
 import CircularMenu from "../components/menus/CircularMenu";
 import RolesEnum from "../../utils/enums/RolesEnum";
 import { usePageStore } from "../store/PageStore";
+import { useKeyStore } from "../store/KeyStore";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
+  const setKeyInstructions = useKeyStore((state) => state.setKeyInstructions);
   const setSphereToMainMenu = useMagicBgStore(
     (state) => state.setSphereToMainMenu
   );
@@ -25,6 +27,9 @@ const Mainmenu = () => {
 
   useEffect(() => {
     setSphereToMainMenu();
+    setKeyInstructions(
+      "Usa W/S o la rueda del ratón para subir o bajar en el menú. ENTER o Clic para seleccionar"
+    );
   }, []);
 
   useEffect(() => {
