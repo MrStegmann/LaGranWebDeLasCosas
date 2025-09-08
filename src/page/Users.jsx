@@ -78,9 +78,9 @@ const Users = () => {
 
   const deleteUser = async (userId) => {
     try {
-      const result = await UserBridge.delete(userId);
+      await UserBridge.delete(userId);
       setAlert({
-        msg: `Bueno, pues ya estaría... Eliminado de la librería... Para siempre. Sip, para siempre.`,
+        msg: `Bueno, pues ya estaría... Eliminado de la existencia... Para siempre. Sip, para siempre.`,
         destroy: true,
       });
       const response = await UserBridge.get(
