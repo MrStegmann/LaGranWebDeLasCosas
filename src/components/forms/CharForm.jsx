@@ -1,27 +1,27 @@
 import { useEffect, useState, useMemo } from "react";
 import IdGenerator from "../../helpers/IdGenerator";
-import InputGAC from "../../framework/InputGAC";
-import SelectGAC from "../../framework/SelectGAC";
-import SaveButtonCAG from "../../framework/SaveButtonGAC";
-import useAlert from "../../context/AlertContext";
+import InputGAC from "@/framework/InputGAC";
+import SelectGAC from "@/framework/SelectGAC";
+import SaveButtonCAG from "@/framework/SaveButtonGAC";
+import useAlert from "@/context/AlertContext";
 import races from "@json/races.json";
-import FormGAC from "../../framework/FormGAC";
-import FieldSetGAC from "../../framework/FieldSetGAC";
-import TextareaGAC from "../../framework/TextareaGAC";
+import FormGAC from "@/framework/FormGAC";
+import FieldSetGAC from "@/framework/FieldSetGAC";
+import TextareaGAC from "@/framework/TextareaGAC";
 import AttirubteExtension from "../extensions/AttirubteExtension";
 import PerkExtension from "../extensions/PerkExtension";
 import ProsConsExtension from "../extensions/ProsConsExtension";
 import GearExtension from "../extensions/GearExtension";
 import SpellExtension from "../extensions/SpellExtension";
 import SkillExtension from "../extensions/SkillExtension";
-import useSheet from "../../context/SheetContext";
+import useSheet from "@/context/SheetContext";
 import { BasicStat } from "@models/extensions/BasicStat";
 import _ from "../../helpers/Translator";
 import { Gear } from "@models/extensions/Gear";
 import { Attribute } from "@models/extensions/Attribute";
-import CharacterBridge from "../../bridges/CharacterBridge";
+import CharacterBridge from "../@/bridges/CharacterBridge";
 import PropTypes from "prop-types";
-import GlowButtonGAC from "../../framework/GlowButtonGAC";
+import GlowButtonGAC from "@/framework/GlowButtonGAC";
 
 const PageOne = ({
   basicInformation,

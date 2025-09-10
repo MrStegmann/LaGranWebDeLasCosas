@@ -1,5 +1,5 @@
-import SocketClient from "../config/socket"; // Asegúrate de tener esto creado y conectado
-import storageEnum from "../../utils/enums/storageEnum";
+import SocketClient from "@/config/socket"; // Asegúrate de tener esto creado y conectado
+import storageEnum from "@/../utils/enums/storageEnum";
 
 export default class NpcBridge {
   static async getNpcs() {

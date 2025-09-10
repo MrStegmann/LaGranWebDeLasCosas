@@ -4,9 +4,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
-import { useMagicBgStore } from "../store/MagicBGStore";
+import { useMagicBgStore } from "@/store/MagicBGStore";
 import { animated, useSpring } from "@react-spring/three";
-import Aritmetic from "../../utils/Aritmetic";
+import Aritmetic from "@/../utils/Aritmetic";
 
 // -------------------- Esfera que brilla --------------------
 function GlowingSphere({

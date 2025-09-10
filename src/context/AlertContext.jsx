@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import AzulitoDrake from "../components/AzulitoDrake";
+import AzulitoDrake from "@/components/AzulitoDrake";
 
 const AlertContext = createContext();
 

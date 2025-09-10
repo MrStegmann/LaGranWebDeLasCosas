@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useAuthStore } from "../store/AuthStore";
+import { useAuthStore } from "@/store/AuthStore";
 import { useNavigate, Outlet } from "react-router-dom";
-import Footer from "../components/Footer";
+import Footer from "@/components/Footer";
 
 const ProfileLayout = () => {
   const loged = useAuthStore((state) => state.loged);

@@ -1,15 +1,15 @@
-import InputGAC from "../framework/InputGAC";
-import useAlert from "../context/AlertContext";
-import useAuth from "../context/AuthContext";
+import InputGAC from "@/framework/InputGAC";
+import useAlert from "@/context/AlertContext";
+import useAuth from "@/context/AuthContext";
 import { useEffect, useState } from "react";
-import MinimalForm from "../framework/MinimalForm";
+import MinimalForm from "@/framework/MinimalForm";
 import { useNavigate } from "react-router-dom";
-import GeneralWelcome from "../../utils/azulitomsg/GeneralWelcome";
-import MorningWelcome from "../../utils/azulitomsg/MorningWelcome";
-import EveningWelcome from "../../utils/azulitomsg/EveningWelcome";
-import NoonWelcome from "../../utils/azulitomsg/NoonWelcome";
-import MsgFormater from "../../utils/azulitomsg/MsgFormater";
-import Times from "../../utils/Times";
+import GeneralWelcome from "@/../utils/azulitomsg/GeneralWelcome";
+import MorningWelcome from "@/../utils/azulitomsg/MorningWelcome";
+import EveningWelcome from "@/../utils/azulitomsg/EveningWelcome";
+import NoonWelcome from "@/../utils/azulitomsg/NoonWelcome";
+import MsgFormater from "@/../utils/azulitomsg/MsgFormater";
+import Times from "@/../utils/Times";
 
 const Login = () => {
   const { setAlert } = useAlert();

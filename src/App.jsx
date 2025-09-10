@@ -1,17 +1,17 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Mainmenu from "./page/Mainmenu";
-import { SheetProvider } from "./context/SheetContext";
-import { AlertProvider } from "./context/AlertContext";
-import { SSProvider } from "./context/SaSContext";
-import { ItemProvider } from "./context/ItemsContext";
-import { AuthProvider } from "./context/AuthContext";
-import Login from "./page/Login";
-import ProfileLayout from "./layouts/ProfileLayout";
-import MagicBackground from "./components/MagicBackground";
-import AdminLayout from "./layouts/AdminLayout";
-import Users from "./page/Users";
+import Mainmenu from "@/page/Mainmenu";
+import { SheetProvider } from "@/context/SheetContext";
+import { AlertProvider } from "@/context/AlertContext";
+import { SSProvider } from "@/context/SaSContext";
+import { ItemProvider } from "@/context/ItemsContext";
+import { AuthProvider } from "@/context/AuthContext";
+import Login from "@/page/Login";
+import ProfileLayout from "@/layouts/ProfileLayout";
+import MagicBackground from "@/components/MagicBackground";
+import AdminLayout from "@/layouts/AdminLayout";
+import Users from "@/page/Users";
 
-import Codex from "./page/Codex";
+import Codex from "@/page/Codex";
 
 function App() {
   return (

@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect, useContext, useMemo } from "react";
-import AuthBridge from "../bridges/AuthBridge";
+import AuthBridge from "@/bridges/AuthBridge";
 import useAlert from "./AlertContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import storageEnum from "../../utils/enums/storageEnum";
-import { useMagicBgStore } from "../store/MagicBGStore";
-import { useAuthStore } from "../store/AuthStore";
+import storageEnum from "@/../utils/enums/storageEnum";
+import { useMagicBgStore } from "@/store/MagicBGStore";
+import { useAuthStore } from "@/store/AuthStore";
 
 const AuthContext = createContext();
 

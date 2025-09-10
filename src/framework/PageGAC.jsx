@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import { usePageStore } from "../store/PageStore";
+import { usePageStore } from "@/store/PageStore";
 
 const PageGAC = ({ children }) => {
   const toAppear = usePageStore((state) => state.toAppear);

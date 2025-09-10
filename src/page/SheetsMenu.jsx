@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import PageGAC from "../framework/PageGAC";
-import GlowLinkGAC from "../framework/GlowLinkGAC";
-import AzulitoDrake from "../components/AzulitoDrake";
-import MenusEnum from "../../utils/enums/MenusEnum";
+import PageGAC from "@/framework/PageGAC";
+import GlowLinkGAC from "@/framework/GlowLinkGAC";
+import AzulitoDrake from "@/components/AzulitoDrake";
+import MenusEnum from "@/../utils/enums/MenusEnum";
 
 const SheetsMenu = () => {
   const { username } = useParams();
@@ -23,16 +23,16 @@ export default SheetsMenu;
 
 /*
 import { useState } from "react";
-import useSheet from "../context/SheetContext";
-import ConfirmModal from "../framework/ConfirmModal";
+import useSheet from "@/context/SheetContext";
+import ConfirmModal from "@/framework/ConfirmModal";
 import { useParams, Link } from "react-router-dom";
-import PageGAC from "../framework/PageGAC";
-import NpcForm from "../components/forms/NpcForm";
-import NpcList from "../components/lists/NpcList";
-import NpcInfo from "../components/infos/NpcInfo";
-import CharList from "../components/lists/CharList";
-import CharInfo from "../components/infos/CharInfo";
-import CharForm from "../components/forms/CharForm";
+import PageGAC from "@/framework/PageGAC";
+import NpcForm from "@/components/forms/NpcForm";
+import NpcList from "@/components/lists/NpcList";
+import NpcInfo from "@/components/infos/NpcInfo";
+import CharList from "@/components/lists/CharList";
+import CharInfo from "@/components/infos/CharInfo";
+import CharForm from "@/components/forms/CharForm";
 
 const SheetsManager = ({ sheetOption }) => {
   const {

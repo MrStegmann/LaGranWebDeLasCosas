@@ -1,4 +1,4 @@
-import { useKeyStore } from "../store/KeyStore";
+import { useKeyStore } from "@/store/KeyStore";
 
 const Footer = () => {
   const keyInstructions = useKeyStore((state) => state.keyInstructions);

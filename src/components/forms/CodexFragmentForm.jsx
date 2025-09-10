@@ -1,11 +1,20 @@
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
-import MinimalForm from "../../framework/MinimalForm";
-import RuneFrame from "../../framework/RuneFrame";
-import InputGAC from "../../framework/InputGAC";
+import MinimalForm from "@/framework/MinimalForm";
+import RuneFrame from "@/framework/RuneFrame";
+import InputGAC from "@/framework/InputGAC";
+import SelectGAC from "@/framework/SelectGAC";
+import useAlert from "@/context/AlertContext";
 
-const CodexFragmentForm = ({ fragment = {} }) => {
+const CodexFragmentForm = ({
+  fragment = {},
+  categories,
+  handleSubmit,
+  sides = "x",
+}) => {
+  const { setAlert } = useAlert();
   const [title, setTitle] = useState(fragment?.title || "");
+  const [category, setCategory] = useState(fragment?.category);
   const [content, setContent] = useState(fragment?.content || "");
   const [showMarkdown, setShowMarkdown] = useState(false);
 
@@ -29,12 +38,31 @@ const CodexFragmentForm = ({ fragment = {} }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(content);
+
+    if (title.length === 0)
+      return setAlert({
+        msg: "Eh... Se te ha olvidado el título del fragmento.",
+        type: "error",
+        destroy: true,
+      });
+    if (category.length === 0)
+      return setAlert({
+        msg: "Eh... Debes seleccionar una categoría para el fragmento, por favor.",
+        type: "error",
+        destroy: true,
+      });
+    if (content.length === 0)
+      return setAlert({
+        msg: "A ver... no puedo guardar un fragmento... sin nada escrito... Escribe algo.",
+        type: "error",
+        destroy: true,
+      });
+    handleSubmit({ title, category, content });
   };
 
   return (
-    <div className="absolute left-48 top-10 w-2/5 h-[75dvh]">
-      <RuneFrame sides="x">
+    <div className="w-full h-full">
+      <RuneFrame sides={sides}>
         <MinimalForm onSubmit={onSubmit} buttonText={"Guardar fragmento"}>
           {/* Input para nombre del fragmento */}
 
@@ -43,8 +71,19 @@ const CodexFragmentForm = ({ fragment = {} }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Título del fragmento"
-            customClass={"w-full mb-10"}
+            customClass={"w-full mb-4"}
           />
+
+          <SelectGAC
+            customClass="w-full mb-10"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Categoría</option>
+            {categories.map((cat) => (
+              <option value={cat._id}>{cat.name}</option>
+            ))}
+          </SelectGAC>
 
           {/* Toolbar básica de Markdown */}
           <div className="space-x-2">

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import useAlert from "../../context/AlertContext";
+import useAlert from "@/context/AlertContext";
 import races from "@json/races.json" with { type: "json" };
 import worgenData from "@json/worgenData.json" with { type: "json" };
 import _ from "../../helpers/Translator";
 import PropTypes from "prop-types";
-import InfoGAC from "../../framework/InfoGAC";
+import InfoGAC from "@/framework/InfoGAC";
 
 const selectItemIcon = (quality) => {
   switch (quality) {

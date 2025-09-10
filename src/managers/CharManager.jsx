@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import PageGAC from "../framework/PageGAC";
-import GlowButtonGAC from "../framework/GlowButtonGAC";
-import useSheet from "../context/SheetContext";
-import ConfirmModal from "../framework/ConfirmModal";
-import CharForm from "../components/forms/CharForm";
-import CharInfo from "../components/infos/CharInfo";
-import CharList from "../components/lists/CharList";
+import PageGAC from "@/framework/PageGAC";
+import GlowButtonGAC from "@/framework/GlowButtonGAC";
+import useSheet from "@/context/SheetContext";
+import ConfirmModal from "@/framework/ConfirmModal";
+import CharForm from "@/components/forms/CharForm";
+import CharInfo from "@/components/infos/CharInfo";
+import CharList from "@/components/lists/CharList";
 
 const CharManager = () => {
   const { handleCreateChar, handleUpdateChar, handleDeleteChar } = useSheet();

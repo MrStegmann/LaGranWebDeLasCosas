@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import useSheet from "../../context/SheetContext";
-import InputGAC from "../../framework/InputGAC";
-import SelectGAC from "../../framework/SelectGAC";
-import SUDButtonsGAC from "../../framework/SUDButtonsGAC";
+import useSheet from "@/context/SheetContext";
+import InputGAC from "@/framework/InputGAC";
+import SelectGAC from "@/framework/SelectGAC";
+import SUDButtonsGAC from "@/framework/SUDButtonsGAC";
 import PropTypes from "prop-types";
-import GlowingDiv from "../../framework/GlowingDiv";
-import useAlert from "../../context/AlertContext";
+import GlowingDiv from "@/framework/GlowingDiv";
+import useAlert from "@/context/AlertContext";
 
 const CharList = ({ handleShow, handleEdit, handleDelete }) => {
   const { chars } = useSheet();

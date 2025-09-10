@@ -1,14 +1,14 @@
-import PageGAC from "../framework/PageGAC";
-import useAuth from "../context/AuthContext";
+import PageGAC from "@/framework/PageGAC";
+import useAuth from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import useAlert from "../context/AlertContext";
-import { useMagicBgStore } from "../store/MagicBGStore";
-import MainMenuEnum from "../../utils/enums/MainMenuEnum";
-import CircularMenu from "../components/menus/CircularMenu";
-import RolesEnum from "../../utils/enums/RolesEnum";
-import { usePageStore } from "../store/PageStore";
-import { useKeyStore } from "../store/KeyStore";
+import useAlert from "@/context/AlertContext";
+import { useMagicBgStore } from "@/store/MagicBGStore";
+import MainMenuEnum from "@/../utils/enums/MainMenuEnum";
+import CircularMenu from "@/components/menus/CircularMenu";
+import RolesEnum from "@/../utils/enums/RolesEnum";
+import { usePageStore } from "@/store/PageStore";
+import { useKeyStore } from "@/store/KeyStore";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();

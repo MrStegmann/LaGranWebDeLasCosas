@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useAuthStore } from "../store/AuthStore";
+import { useAuthStore } from "@/store/AuthStore";
 import { useNavigate, Outlet } from "react-router-dom";
-import RolesEnum from "../../utils/enums/RolesEnum";
-import useAlert from "../context/AlertContext";
+import RolesEnum from "@/../utils/enums/RolesEnum";
+import useAlert from "@/context/AlertContext";
 
 const AdminLayout = () => {
   const loged = useAuthStore((state) => state.loged);

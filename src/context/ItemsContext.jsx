@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect, useContext, useMemo } from "react";
-import ItemBridge from "../bridges/ItemBridge";
+import ItemBridge from "@/bridges/ItemBridge";
 import useAlert from "./AlertContext";
 import { Item } from "@models/Item";
 import PropTypes from "prop-types";
-import { useAuthStore } from "../store/AuthStore";
+import { useAuthStore } from "@/store/AuthStore";
 
 const ItemContext = createContext();
 

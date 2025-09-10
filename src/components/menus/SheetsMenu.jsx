@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import MenusEnum from "../../../utils/enums/MenusEnum";
-import GlowLinkGAC from "../../framework/GlowLinkGAC";
-import useAlert from "../../context/AlertContext";
+import MenusEnum from "@/../utils/enums/MenusEnum";
+import GlowLinkGAC from "@/framework/GlowLinkGAC";
+import useAlert from "@/context/AlertContext";
 
 const SheetsMenu = ({ username }) => {
   const { setAlert } = useAlert();

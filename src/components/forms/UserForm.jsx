@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import InputGAC from "../../framework/InputGAC";
-import SelectGAC from "../../framework/SelectGAC";
-import RolesEnum from "../../../utils/enums/RolesEnum";
-import useAlert from "../../context/AlertContext";
-import ButtonGAC from "../../framework/ButtonGAC";
-import DeleteBtnGAC from "../../framework/DeleteBtnGAC";
-import UsersEnum from "../../../utils/enums/UsersEnum";
-import RuneFrame from "../../framework/RuneFrame";
+import InputGAC from "@/framework/InputGAC";
+import SelectGAC from "@/framework/SelectGAC";
+import RolesEnum from "@/../utils/enums/RolesEnum";
+import useAlert from "@/context/AlertContext";
+import ButtonGAC from "@/framework/ButtonGAC";
+import DeleteBtnGAC from "@/framework/DeleteBtnGAC";
+import UsersEnum from "@/../utils/enums/UsersEnum";
+import RuneFrame from "@/framework/RuneFrame";
 
 const UserForm = ({ data, onSubmit, onDelete }) => {
   if (!data) return;
   const { setAlert } = useAlert();
   const [deleteUser, setDeleteUser] = useState(false);
-  const [delTimer, setDelTimer] = useState(15);
+  const [delTimer, setDelTimer] = useState(8);
 
   const [_id, setId] = useState(data._id);
   const [username, setUsername] = useState(data.username);
@@ -36,7 +36,7 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
         }, 1000);
       } else {
         setDeleteUser(false);
-        setDelTimer(15);
+        setDelTimer(8);
         setAlert({
           msg: "Supongo que has cambiado de opinión. ¡Mejor! Los datos hay que preservarlos.",
           type: "info",
@@ -44,7 +44,7 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
         });
       }
     } else {
-      setDelTimer(15);
+      setDelTimer(8);
     }
   }, [deleteUser, delTimer]);
 

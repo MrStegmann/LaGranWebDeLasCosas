@@ -1,10 +1,10 @@
 import { useState } from "react";
-import InputGAC from "../../framework/InputGAC";
-import SelectGAC from "../../framework/SelectGAC";
+import InputGAC from "@/framework/InputGAC";
+import SelectGAC from "@/framework/SelectGAC";
 import _ from "../../helpers/Translator";
-import UlGAC from "../../framework/UlGAC";
-import SUDButtonsGAC from "../../framework/SUDButtonsGAC";
-import LiGAC from "../../framework/LiGAC";
+import UlGAC from "@/framework/UlGAC";
+import SUDButtonsGAC from "@/framework/SUDButtonsGAC";
+import LiGAC from "@/framework/LiGAC";
 import PropTypes from "prop-types";
 
 const PerkList = ({ handleShow }) => {

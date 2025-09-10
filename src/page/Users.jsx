@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMagicBgStore } from "../store/MagicBGStore";
-import UserBridge from "../bridges/UserBridge";
-import useAlert from "../context/AlertContext";
-import storageEnum from "../../utils/enums/storageEnum";
-import VerticalMenu from "../components/menus/VerticalMenu";
-import UserForm from "../components/forms/UserForm";
-import MinimalGlowingBtn from "../framework/MinimalGlowingBtn";
-import UsersEnum from "../../utils/enums/UsersEnum";
-import PageGAC from "../framework/PageGAC";
-import { usePageStore } from "../store/PageStore";
+import { useMagicBgStore } from "@/store/MagicBGStore";
+import UserBridge from "@/bridges/UserBridge";
+import useAlert from "@/context/AlertContext";
+import storageEnum from "@/../utils/enums/storageEnum";
+import VerticalMenu from "@/components/menus/VerticalMenu";
+import UserForm from "@/components/forms/UserForm";
+import MinimalGlowingBtn from "@/framework/MinimalGlowingBtn";
+import UsersEnum from "@/../utils/enums/UsersEnum";
+import PageGAC from "@/framework/PageGAC";
+import { usePageStore } from "@/store/PageStore";
 
 const Users = () => {
   const { setAlert } = useAlert();

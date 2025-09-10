@@ -1,14 +1,14 @@
 import { createContext, useState, useEffect, useContext, useMemo } from "react";
 import useSaS from "./SaSContext";
-import NpcBridge from "../bridges/NpcBridge";
-import CharacterBridge from "../bridges/CharacterBridge";
+import NpcBridge from "@/bridges/NpcBridge";
+import CharacterBridge from "@/bridges/CharacterBridge";
 import useAlert from "./AlertContext";
 import { Character } from "@models/Character";
 import { Npc } from "@models/Npc";
 import { Gear } from "@models/extensions/Gear";
 import { Attribute } from "@models/extensions/Attribute";
 import { Talent } from "@models/extensions/Talent";
-import { useAuthStore } from "../store/AuthStore";
+import { useAuthStore } from "@/store/AuthStore";
 import PropTypes from "prop-types";
 
 const SheetContext = createContext();

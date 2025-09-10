@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import InputGAC from "../../framework/InputGAC";
+import InputGAC from "@/framework/InputGAC";
 import _ from "../../helpers/Translator";
 import PerkLevelExtension from "./PerkLevelExtension";
 import PropTypes from "prop-types";

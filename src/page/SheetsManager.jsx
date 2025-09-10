@@ -1,7 +1,7 @@
 import { useParams, Outlet } from "react-router-dom";
-import PageGAC from "../framework/PageGAC";
+import PageGAC from "@/framework/PageGAC";
 
-import SheetsMenu from "../components/menus/SheetsMenu";
+import SheetsMenu from "@/components/menus/SheetsMenu";
 
 const SheetsManager = ({ children }) => {
   const { username } = useParams();
