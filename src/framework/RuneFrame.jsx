@@ -24,12 +24,19 @@ const runes = [
 ];
 export default function RuneFrame({
   sides = "all", // "all" | "x" | "y" | "t" | "b" | "l" | "r"
+  showContent,
+  setShowContent,
   children,
 }) {
   const containerRef = useRef(null);
   const runeRef = useRef(null);
 
-  const [showContent, setShowContent] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowContent(true);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Función que repite las runas hasta alcanzar el número requerido
   const fillRunes = (count) => {
@@ -40,13 +47,9 @@ export default function RuneFrame({
     return arr;
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowContent(true);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, []);
-
+  const setBorderBySide = (side) => {
+    return "border-" + side;
+  };
   const container = containerRef?.current?.getBoundingClientRect();
   const rune = runeRef?.current?.getBoundingClientRect();
   const runesPerRow = Math.floor((container?.width || 0) / (rune?.width || 12));
@@ -63,7 +66,7 @@ export default function RuneFrame({
   return (
     <div
       ref={containerRef}
-      className={`rune-frame-container relative flex items-center justify-center backdrop-blur-md rounded-3xl transition-all duration-300 ${showContent ? "w-full" : "w-16"}  h-full overflow-hidden ${sides === "all" ? "border" : `border-${sides}`} border-mana`}
+      className={`rune-frame-container relative flex items-center justify-center backdrop-blur-md rounded-3xl transition-all duration-300 ${showContent ? "w-full" : "w-16"}  h-full overflow-hidden ${sides === "all" ? "border" : setBorderBySide(sides)} border-mana`}
     >
       {/* Top */}
       <div
@@ -122,7 +125,7 @@ export default function RuneFrame({
       </div>
 
       <div
-        className={`rune-content relative flex justify-center items-center flex-col h-full z-10 px-10 py-5 transition-all duration-1000 ${showContent ? "opacity-100 w-full" : "opacity-0 w-0"}`}
+        className={`rune-content relative flex justify-center items-center flex-col h-full z-10 px-10 py-5 transition-all duration-500 ${showContent ? "opacity-100 w-full" : "opacity-0 w-0"}`}
       >
         {children}
       </div>

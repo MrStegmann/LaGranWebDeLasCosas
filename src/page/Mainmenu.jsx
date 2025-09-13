@@ -5,10 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import useAlert from "@/context/AlertContext";
 import { useMagicBgStore } from "@/store/MagicBGStore";
 import MainMenuEnum from "@/../utils/enums/MainMenuEnum";
-import CircularMenu from "@/components/menus/CircularMenu";
 import RolesEnum from "@/../utils/enums/RolesEnum";
 import { useCurrentMenu, usePageStore } from "@/store/PageStore";
-import { useKeyStore } from "@/store/KeyStore";
 import RingMenu from "../framework/RingMenu";
 
 const Mainmenu = () => {
@@ -134,32 +132,18 @@ const Mainmenu = () => {
       {
         id: MainMenuEnum.USER_MEMBERS,
         label: "Miembros",
-        submenu: "membersMenu",
+        fnc: () => navigateTo(`/admin/users-list`),
       },
       { id: MainMenuEnum.LOGOUT, label: "Cerrar sesión", fnc: handleLogout },
     ],
     sheetsMenu: [
-      { id: "a1", label: "Crear Ficha de personaje" },
       { id: "a2", label: "Crear Ficha de NPC" },
-      { id: "a3", label: "Lista de Personajes" },
       { id: "a4", label: "Lista de NPCs" },
-    ],
-    membersMenu: [
-      {
-        id: "newUser",
-        label: "Crear usuario",
-        fnc: () => navigateTo(`/admin/new-user`),
-      },
-      {
-        id: "userList",
-        label: "Lista de usuarios",
-        fnc: () => navigateTo(`/admin/users-list`),
-      },
     ],
   };
 
   return (
-    <PageGAC>
+    <div className="w-full h-full flex items-center justify-center">
       <div
         onMouseOver={(e) => setOverSomething(e.target.id)}
         className={`relative pb-10 mb-10`}
@@ -172,7 +156,7 @@ const Mainmenu = () => {
         />
         {/* <CircularMenu items={items} /> */}
       </div>
-    </PageGAC>
+    </div>
   );
 };
 

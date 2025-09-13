@@ -8,11 +8,8 @@ import DeleteBtnGAC from "@/framework/DeleteBtnGAC";
 import UsersEnum from "@/../utils/enums/UsersEnum";
 import RuneFrame from "@/framework/RuneFrame";
 
-const UserForm = ({ data, onSubmit, onDelete }) => {
-  if (!data) return;
+const UserForm = ({ data, onSubmit, onCancel }) => {
   const { setAlert } = useAlert();
-  const [deleteUser, setDeleteUser] = useState(false);
-  const [delTimer, setDelTimer] = useState(8);
 
   const [_id, setId] = useState("");
   const [username, setUsername] = useState("");
@@ -30,43 +27,10 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (deleteUser) {
-      if (delTimer > 0) {
-        setTimeout(() => {
-          setDelTimer((before) => (before - 1 > 0 ? before - 1 : 0));
-        }, 1000);
-      } else {
-        setDeleteUser(false);
-        setDelTimer(8);
-        setAlert({
-          msg: "Supongo que has cambiado de opinión. ¡Mejor! Los datos hay que preservarlos.",
-          type: "info",
-          destroy: true,
-        });
-      }
-    } else {
-      setDelTimer(8);
-    }
-  }, [deleteUser, delTimer]);
-
-  const handleDelete = (e) => {
-    e.preventDefault();
-    if (!deleteUser) {
-      setAlert({
-        msg: "¿Estás seguro de que quieres eliminar a este usuario? ¿Para siempre? Si es así... vuelve a pulsar sobre Eliminar",
-        type: "warning",
-      });
-      setDeleteUser(true);
-    } else {
-      onDelete(_id);
-      setDeleteUser(false);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
+      data &&
       username.trim() === data.username &&
       rol === data.rol &&
       newPass.newPassword.length === 0
@@ -76,12 +40,14 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
         destroy: true,
         type: "error",
       });
+
     if (username.trim().length === 0)
       return setAlert({
         msg: "El nombre de usuario no puede estar vacio.",
         destroy: true,
         type: "error",
       });
+
     if (
       [newPass.newPassword.length, newPass.repeatPassword.length].includes(0)
     ) {
@@ -161,11 +127,7 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
 
         <div className="flex flex-row w-full justify-center items-center">
           <ButtonGAC type="submit">Guardar</ButtonGAC>
-          {data?._id && data._id !== UsersEnum.NEW_USER_ID && (
-            <DeleteBtnGAC onClick={handleDelete}>
-              Eliminar {deleteUser ? delTimer : ""}
-            </DeleteBtnGAC>
-          )}
+          <DeleteBtnGAC onClick={onCancel}>Cancelar</DeleteBtnGAC>
         </div>
       </div>
     </form>

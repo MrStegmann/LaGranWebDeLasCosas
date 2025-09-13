@@ -9,10 +9,8 @@ import Login from "@/page/Login";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import MagicBackground from "@/components/MagicBackground";
 import AdminLayout from "@/layouts/AdminLayout";
-import Users from "@/page/Users";
 
 import Codex from "@/page/Codex";
-import NewUser from "./page/NewUser";
 import UsersList from "./page/UsersList";
 
 function App() {
@@ -48,7 +46,6 @@ function App() {
                       <Route path="item-maker" element={<ItemsManager />} /> */}
                     </Route>
                     <Route path="/admin/" element={<AdminLayout />}>
-                      <Route path="new-user" element={<NewUser />} />
                       <Route path="users-list" element={<UsersList />} />
                     </Route>
                     {/* <Route path="/" element={<Mainmenu />} /> */}

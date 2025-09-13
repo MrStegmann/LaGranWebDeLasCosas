@@ -1,27 +1,30 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
-import { usePageStore } from "@/store/PageStore";
+import MinimalGlowingBtn from "@/framework/MinimalGlowingBtn";
 
-const PageGAC = ({ children }) => {
-  const toAppear = usePageStore((state) => state.toAppear);
-  const setToAppear = usePageStore((state) => state.setToAppear);
-
-  useEffect(() => {
-    if (!toAppear) {
-      setTimeout(() => setToAppear(true), 1000);
-    }
-  }, [toAppear]);
-
+/** Componente para las páginas exceptuando MainMenu. Situa los componentes a la izquierda y distribuye el espacio para que la derecha quede libre. Además, tiene implícito el botón para volver que funciona con la propiedad obligatoria de "navigate".
+ *
+ * @param vanishContent Default = false; permite crear una animación de aparecer y desaparecer desde el componente padre.
+ * @param navigate Proporciona una función para regresar o navegar a través de la página recibiendo la función desde el componente padre. Si es null o undefined, no aparecerá.
+ *
+ */
+const PageGAC = ({ vanishContent = false, navigate, children }) => {
   return (
     <div
       onContextMenu={(e) => e.preventDefault()}
-      className={`w-full h-dvh flex flex-col justify-center items-center transition-all duration-800 ${
-        !toAppear
-          ? "opacity-0 translate-x-96 scale-0"
-          : "opacity-100 translate-x-0 scale-100"
-      }`}
+      className="w-full h-full relative flex items-center"
     >
-      {children}
+      {navigate && (
+        <div className="absolute top-0 left-0">
+          <MinimalGlowingBtn id="backToMainMenu" onClick={navigate}>
+            Volver
+          </MinimalGlowingBtn>
+        </div>
+      )}
+      <div
+        className={`w-1/2 h-3/4 transition-opacity duration-300 delay-700 ${vanishContent ? "opacity-0" : "opacity-100"}`}
+      >
+        {children}
+      </div>
     </div>
   );
 };

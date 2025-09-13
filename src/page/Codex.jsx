@@ -7,7 +7,6 @@ import useAlert from "@/context/AlertContext";
 import { usePageStore } from "@/store/PageStore";
 import { useMagicBgStore } from "@/store/MagicBGStore";
 import CodexFragmentForm from "@/components/forms/CodexFragmentForm";
-import CircularMenu from "@/components/menus/CircularMenu";
 import RolesEnum from "@/../utils/enums/RolesEnum";
 import CodexCategory from "@/components/forms/CodexCategory";
 import CodexBridge from "@/bridges/CodexBridge";
@@ -227,10 +226,6 @@ const Codex = () => {
   return (
     <PageGAC>
       <div className="w-full h-full flex flex-row relative items-center">
-        <div className="absolute left-0 -translate-x-2/3">
-          <CircularMenu side="right" maxVisible={5} items={items(option)} />
-        </div>
-
         <div className="h-[75dvh] w-full flex absolute right-0 translate-x-1/3">
           {option === CodexEnum.CODEX_CATEGORY && (
             <>
