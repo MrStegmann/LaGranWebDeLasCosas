@@ -14,18 +14,20 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
   const [deleteUser, setDeleteUser] = useState(false);
   const [delTimer, setDelTimer] = useState(8);
 
-  const [_id, setId] = useState(data._id);
-  const [username, setUsername] = useState(data.username);
-  const [rol, setRol] = useState(data.rol);
+  const [_id, setId] = useState("");
+  const [username, setUsername] = useState("");
+  const [rol, setRol] = useState("guest");
   const [newPass, setNewPass] = useState({
     newPassword: "",
     repeatPassword: "",
   });
 
   useEffect(() => {
-    setId(data._id);
-    setUsername(data.username);
-    setRol(data.rol);
+    if (data?._id) {
+      setId(data._id);
+      setUsername(data.username);
+      setRol(data.rol);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -100,74 +102,72 @@ const UserForm = ({ data, onSubmit, onDelete }) => {
 
       onSubmit({ _id, username, rol, password: newPass.newPassword });
     }
-    setUsername(data.username);
-    setRol(data.rol);
+    setUsername("");
+    setRol("");
     setNewPass({ newPassword: "", repeatPassword: "" });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-1/3 h-96">
-      <RuneFrame sides="x">
-        <div className="space-y-5 px-10 flex flex-col">
-          <InputGAC
-            id="username"
-            name="username"
-            value={username}
-            placeholder="Nombre de usuario"
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <form onSubmit={handleSubmit}>
+      <div className="space-y-5 px-10 flex flex-col">
+        <InputGAC
+          id="username"
+          name="username"
+          value={username}
+          placeholder="Nombre de usuario"
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-          <SelectGAC
-            id="rol"
-            name="rol"
-            value={rol}
-            onChange={(e) => setRol(e.target.value)}
-          >
-            <option value={RolesEnum.GUEST.toLowerCase()}>
-              {RolesEnum.GUEST.toLowerCase()}
-            </option>
-            <option value={RolesEnum.ROLER.toLowerCase()}>
-              {RolesEnum.ROLER.toLowerCase()}
-            </option>
-            <option value={RolesEnum.OFFICER.toLowerCase()}>
-              {RolesEnum.OFFICER.toLowerCase()}
-            </option>
-            <option value={RolesEnum.ADMIN.toLowerCase()}>
-              {RolesEnum.ADMIN.toLowerCase()}
-            </option>
-          </SelectGAC>
+        <SelectGAC
+          id="rol"
+          name="rol"
+          value={rol}
+          onChange={(e) => setRol(e.target.value)}
+        >
+          <option value={RolesEnum.GUEST.toLowerCase()}>
+            {RolesEnum.GUEST.toLowerCase()}
+          </option>
+          <option value={RolesEnum.ROLER.toLowerCase()}>
+            {RolesEnum.ROLER.toLowerCase()}
+          </option>
+          <option value={RolesEnum.OFFICER.toLowerCase()}>
+            {RolesEnum.OFFICER.toLowerCase()}
+          </option>
+          <option value={RolesEnum.ADMIN.toLowerCase()}>
+            {RolesEnum.ADMIN.toLowerCase()}
+          </option>
+        </SelectGAC>
 
-          <InputGAC
-            id="newPassword"
-            name="newPassword"
-            value={newPass.newPassword}
-            type="password"
-            placeholder="Nueva contraseña"
-            onChange={(e) =>
-              setNewPass({ ...newPass, [e.target.name]: e.target.value })
-            }
-          />
-          <InputGAC
-            id="repeatPassword"
-            name="repeatPassword"
-            value={newPass.repeatPassword}
-            type="password"
-            placeholder="Repita la contraseña"
-            onChange={(e) =>
-              setNewPass({ ...newPass, [e.target.name]: e.target.value })
-            }
-          />
+        <InputGAC
+          id="newPassword"
+          name="newPassword"
+          value={newPass.newPassword}
+          type="password"
+          placeholder="Contraseña"
+          onChange={(e) =>
+            setNewPass({ ...newPass, [e.target.name]: e.target.value })
+          }
+        />
+        <InputGAC
+          id="repeatPassword"
+          name="repeatPassword"
+          value={newPass.repeatPassword}
+          type="password"
+          placeholder="Repite la contraseña"
+          onChange={(e) =>
+            setNewPass({ ...newPass, [e.target.name]: e.target.value })
+          }
+        />
 
-          <div className="flex flex-row w-full justify-center items-center">
-            <ButtonGAC type="submit">Guardar</ButtonGAC>
-            {data._id !== UsersEnum.NEW_USER_ID && (
-              <DeleteBtnGAC onClick={handleDelete}>
-                Eliminar {deleteUser ? delTimer : ""}
-              </DeleteBtnGAC>
-            )}
-          </div>
+        <div className="flex flex-row w-full justify-center items-center">
+          <ButtonGAC type="submit">Guardar</ButtonGAC>
+          {data?._id && data._id !== UsersEnum.NEW_USER_ID && (
+            <DeleteBtnGAC onClick={handleDelete}>
+              Eliminar {deleteUser ? delTimer : ""}
+            </DeleteBtnGAC>
+          )}
         </div>
-      </RuneFrame>
+      </div>
     </form>
   );
 };

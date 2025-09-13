@@ -2,8 +2,10 @@ import SocketClient from "@/config/socket"; // Asegúrate de tener esto creado y
 import storageEnum from "@/../utils/enums/storageEnum";
 
 export default class UserBridge {
-  static async get(token) {
-    return await SocketClient.emitWithPromise("user:getAll", { token });
+  static async get() {
+    return await SocketClient.emitWithPromise("user:getAll", {
+      token: localStorage.getItem(storageEnum.GWC_TOKEN),
+    });
   }
 
   static async create(user) {

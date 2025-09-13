@@ -7,14 +7,16 @@ import { useMagicBgStore } from "@/store/MagicBGStore";
 import MainMenuEnum from "@/../utils/enums/MainMenuEnum";
 import CircularMenu from "@/components/menus/CircularMenu";
 import RolesEnum from "@/../utils/enums/RolesEnum";
-import { usePageStore } from "@/store/PageStore";
+import { useCurrentMenu, usePageStore } from "@/store/PageStore";
 import { useKeyStore } from "@/store/KeyStore";
+import RingMenu from "../framework/RingMenu";
 
 const Mainmenu = () => {
   const { onLogout } = useAuth();
   const { username } = useParams();
   const { setAlert } = useAlert();
-  const setKeyInstructions = useKeyStore((state) => state.setKeyInstructions);
+  const currentMenu = useCurrentMenu((state) => state.currentMenu);
+  const setCurrentMenu = useCurrentMenu((state) => state.setCurrentMenu);
   const setSphereToMainMenu = useMagicBgStore(
     (state) => state.setSphereToMainMenu
   );
@@ -27,9 +29,6 @@ const Mainmenu = () => {
 
   useEffect(() => {
     setSphereToMainMenu();
-    setKeyInstructions(
-      "Usa W/S o la rueda del ratón para subir o bajar en el menú. ENTER o Clic para seleccionar"
-    );
   }, []);
 
   useEffect(() => {
@@ -91,12 +90,12 @@ const Mainmenu = () => {
   };
 
   const items = [
-    {
-      fnc: () => navigateTo(`/${username}/codex`),
-      label: "Codex",
-      minRol: RolesEnum.GUEST,
-      id: MainMenuEnum.GREAT_BOOK,
-    },
+    // {
+    //   fnc: () => navigateTo(`/${username}/codex`),
+    //   label: "Codex",
+    //   minRol: RolesEnum.GUEST,
+    //   id: MainMenuEnum.GREAT_BOOK,
+    // },
     // {
     //   fnc: () => navigateTo(`/${username}/grimoire`),
     //   label: "Grimorio",
@@ -128,13 +127,50 @@ const Mainmenu = () => {
     },
   ];
 
+  const menuConfig = {
+    main: [
+      // { id: MainMenuEnum.GREAT_BOOK, label: "Codex", submenu: "codexMenu" },
+      { id: MainMenuEnum.SHEETS, label: "Fichas", submenu: "sheetsMenu" },
+      {
+        id: MainMenuEnum.USER_MEMBERS,
+        label: "Miembros",
+        submenu: "membersMenu",
+      },
+      { id: MainMenuEnum.LOGOUT, label: "Cerrar sesión", fnc: handleLogout },
+    ],
+    sheetsMenu: [
+      { id: "a1", label: "Crear Ficha de personaje" },
+      { id: "a2", label: "Crear Ficha de NPC" },
+      { id: "a3", label: "Lista de Personajes" },
+      { id: "a4", label: "Lista de NPCs" },
+    ],
+    membersMenu: [
+      {
+        id: "newUser",
+        label: "Crear usuario",
+        fnc: () => navigateTo(`/admin/new-user`),
+      },
+      {
+        id: "userList",
+        label: "Lista de usuarios",
+        fnc: () => navigateTo(`/admin/users-list`),
+      },
+    ],
+  };
+
   return (
     <PageGAC>
       <div
         onMouseOver={(e) => setOverSomething(e.target.id)}
         className={`relative pb-10 mb-10`}
       >
-        <CircularMenu items={items} />
+        <RingMenu
+          menus={menuConfig}
+          side="left"
+          setCurrentMenu={setCurrentMenu}
+          currentMenu={currentMenu}
+        />
+        {/* <CircularMenu items={items} /> */}
       </div>
     </PageGAC>
   );

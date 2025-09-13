@@ -21,7 +21,7 @@ export const useMagicBgStore = create((set) => ({
   setSphereToLogin: () =>
     set({ spherePos: [-6, 1.9, -15], sphereRot: [0.06, 0.42, 0.5] }),
   setSphereToMainMenu: () =>
-    set({ spherePos: [0, 0, -35], sphereRot: [2, 0, 0] }),
+    set({ spherePos: [0, 0.15, -35], sphereRot: [2, 0, 0] }),
   setSphereToCodex: () =>
     set({ spherePos: [0, -6.5, -15], sphereRot: [-0.35, 0, 0] }),
 }));

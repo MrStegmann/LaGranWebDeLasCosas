@@ -1,43 +1,33 @@
 import { useState } from "react";
 
-const MinimalGlowingBtn = ({
-  id,
-  side = "left",
-  customClass,
-  children,
-  ...props
-}) => {
+const MinimalGlowingBtn = ({ id, children, ...props }) => {
   const [glowIt, setGlowIt] = useState("");
-  const effectBySide = {
-    left: {
-      btn: "border-r-4",
-      span: "right-0",
-      spanGlowIt: "bg-gradient-to-l from-mana/50 to-arcane-bright/0",
-      spanNoGlowIt: "bg-gradient-to-r from-arcane-bright/0 to-mana/50",
-    },
-    right: {
-      btn: "border-l-4",
-      span: "left-0",
-      spanGlowIt: "bg-gradient-to-r from-mana/50 to-arcane-bright/0",
-      spanNoGlowIt: "bg-gradient-to-l from-arcane-bright/0 to-mana/50",
-    },
-  };
   return (
     <button
       id={id}
       onMouseOver={(e) => setGlowIt(e.target.id)}
       onMouseLeave={() => setGlowIt("")}
-      className={`${customClass?.includes("absolute") ? customClass : `${customClass} relative`}  text-mana text-center text-lg font-bold cursor-pointer px-10 transition-all duration-1000 bg-transparent rounded-full ${effectBySide[side].btn} border-b-2 border-mana ${glowIt === id ? "animate-pulseTextGlow" : ""}`}
+      className={`text-mana flex justify-center items-center relative px-10 py-5 h-16 text-xl font-bold cursor-pointer transition-all ${glowIt === id ? "animate-pulseTextGlow" : ""}`}
       {...props}
     >
-      {children}
+      {/* Izquierda */}
       <span
-        className={`absolute -z-10 top-0 ${effectBySide[side].span} h-full transition-all rounded-full duration-700 ${
-          glowIt === id
-            ? `w-full ${effectBySide[side].spanGlowIt}`
-            : `w-0 ${effectBySide[side].spanNoGlowIt}`
-        }`}
+        className={`w-0 h-4 top-0 right-0 absolute border-r-2 transition-all duration-1000 ${glowIt === id ? "h-full" : ""}`}
       ></span>
+      {/* Derecha */}
+      <span
+        className={`w-0 h-4 bottom-0 left-0 absolute border-l-2 transition-all duration-1000 ${glowIt === id ? "h-full" : ""}`}
+      ></span>
+      {/* Arriba */}
+      <span
+        className={`w-4 h-0 top-0 right-0 absolute border-t-2 transition-all duration-1000 ${glowIt === id ? "w-full" : ""}`}
+      ></span>
+      {/* Abajo */}
+      <span
+        className={`w-4 h-0 bottom-0 left-0 absolute border-b-2 transition-all duration-1000 ${glowIt === id ? "w-full" : ""}`}
+      ></span>
+
+      {children}
     </button>
   );
 };
